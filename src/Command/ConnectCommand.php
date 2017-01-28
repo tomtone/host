@@ -1,7 +1,7 @@
 <?php
 namespace Neusta\MageHost\Command;
 
-use Neusta\MageHost\Services\File;
+use Neusta\MageHost\Services\Host;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -49,19 +49,22 @@ class ConnectCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = new File();
+        $file = new Host();
         $hosts = $file->getHostsForQuestionhelper();
+        $hosts[] = 'exit';
         $helper = new QuestionHelper();
 
         $question = new ChoiceQuestion(
-            'Please select your favorite color (defaults to red)',
+            'Please select a host:',
             $hosts,
             0
         );
-        $question->setErrorMessage('Color %s is invalid.');
+        $question->setErrorMessage('Host #%s is invalid.');
 
-        $color = $helper->ask($input, $output, $question);
-        $output->writeln('You have just selected: '.$color);
+        $host = $helper->ask($input, $output, $question);
+        $output->writeln('You have just selected: '.$host);
+
+
         return 0;
     }
 }

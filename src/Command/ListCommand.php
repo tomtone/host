@@ -2,22 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: tgostomski
- * Date: 27.01.17
- * Time: 18:14
+ * Date: 28.01.17
+ * Time: 07:03
  */
 
 namespace Neusta\MageHost\Command;
 
-
 use Neusta\MageHost\Services\Host;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Exception\LogicException;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AddCommand extends Command
+class ListCommand extends Command
 {
     /**
      *
@@ -26,9 +24,9 @@ class AddCommand extends Command
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('host:add')
+            ->setName('host:list')
             // the short description shown while running "php bin/console list"
-            ->setDescription('interactively add new hosts');
+            ->setDescription('list available hosts');
         ;
     }
 
@@ -51,24 +49,25 @@ class AddCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $helper = new QuestionHelper();
 
-        $question = new Question('Please enter name: ');
+        $table = new Table($output);
 
-        $name = $helper->ask($input, $output, $question);
+        $hosts = new Host();
+        $tableData = [];
+        foreach ($hosts->getHosts() as $host){
+            $tableData[] = [
+                $host['name'],
+                $host['host'],
+                $host['user'],
+                'local',
+            ];
+        }
 
-        $question = new Question('Please enter host: ');
-
-        $hostname = $helper->ask($input, $output, $question);
-
-        $question = new Question('Please enter username: ');
-
-        $user = $helper->ask($input, $output, $question);
-
-        $files = new Host();
-        $files->update($name, $hostname, $user);
-
-        $output->writeln($user . '@' .$hostname );
+        $table
+            ->setHeaders(array('Name', 'Host', 'User', 'Scope'))
+            ->setRows($tableData)
+        ;
+        $table->render();
         return 0;
     }
 }

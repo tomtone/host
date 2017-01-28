@@ -6,7 +6,7 @@ namespace Neusta\MageHost\Services;
  * Date: 27.01.17
  * Time: 18:24
  */
-class File
+class Host
 {
 const DEFAULT_CONFIG_FILE = '.magehost';
     /**
@@ -17,13 +17,14 @@ const DEFAULT_CONFIG_FILE = '.magehost';
     public function __construct()
     {
         $this->fs = new \Symfony\Component\Filesystem\Filesystem();
+        $this->configuration = $this->getConfig();
     }
 
     public function update($name, $host, $user)
     {
         $fileName = './'. self::DEFAULT_CONFIG_FILE;
-        $this->create($fileName);
-        $config = json_decode(file_get_contents('./'. self::DEFAULT_CONFIG_FILE));
+        $this->getConfig($fileName);
+        $config = $this->configuration;
         $config[] = [
             'name' => $name,
             'host' => $host,
@@ -34,7 +35,7 @@ const DEFAULT_CONFIG_FILE = '.magehost';
         $this->fs->dumpFile($fileName, json_encode($config));
     }
 
-    private function create($fileName = null)
+    private function getConfig($fileName = null)
     {
         if(is_null($fileName)) {
             $fileName = './' . self::DEFAULT_CONFIG_FILE;
@@ -44,37 +45,35 @@ const DEFAULT_CONFIG_FILE = '.magehost';
             $defaults = [];
             $this->fs->dumpFile($fileName, json_encode($defaults));
         }
+
+        $config = json_decode(file_get_contents('./'. self::DEFAULT_CONFIG_FILE));
+
+        return $config;
     }
 
     public function getHosts()
     {
-        $config = json_decode(file_get_contents('./'. self::DEFAULT_CONFIG_FILE), true);
+        $config = $this->configuration;
         return $config;
     }
 
     public function getHostsForQuestionhelper()
     {
-        $config = json_decode(file_get_contents('./'. self::DEFAULT_CONFIG_FILE), true);
+        $config = $this->configuration;
         $hosts = [];
         foreach ($config as $host) {
             $hosts[] = $host['name'];
         }
         return $hosts;
     }
-}
 
-#$home = self::getHomeDir();
-#$fileName = $home . DIRECTORY_SEPARATOR . '.packer';
-#$fs = new Filesystem();
-#if(!$fs->exists($fileName)){
-#    // generate a minimal version for global packer configuration packer
-#    $defaults = [
-#        'output' => sys_get_temp_dir()
-#    ];
-#    $fs->dumpFile($fileName, json_encode($defaults));
-#}
-#$config = json_decode(file_get_contents($fileName), true);
-#if(is_null($config)){
-#    $config = false;
-#}
-#return $config;
+    public function getConnectionStringByName($host)
+    {
+        $config = $this->configuration;
+
+        $hostKey = array_search($host, array_column($config, 'name'));
+
+        $sshCommand = $config[$hostKey]['user'] . '@' . $config[$hostKey]['host'];
+        return $sshCommand;
+    }
+}
