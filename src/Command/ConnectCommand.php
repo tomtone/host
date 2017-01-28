@@ -1,7 +1,7 @@
 <?php
 namespace Neusta\MageHost\Command;
 
-use Neusta\MageHost\Services\Host;
+use Neusta\MageHost\Services\Hosts;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -49,7 +49,7 @@ class ConnectCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = new Host();
+        $file = new Hosts();
         $hosts = $file->getHostsForQuestionhelper();
         $hosts[] = 'exit';
         $helper = new QuestionHelper();
@@ -62,9 +62,17 @@ class ConnectCommand extends Command
         $question->setErrorMessage('Host #%s is invalid.');
 
         $host = $helper->ask($input, $output, $question);
-        $output->writeln('You have just selected: '.$host);
 
+        if($host == 'exit'){
+            $output->writeln('exiting.');
+            $output->writeln('have a nice day :-)');
+            return 0;
+        }
 
+        $output->writeln('You have selected: '.$host);
+        $output->writeln("establishing connection...");
+        $string = $file->getConnectionStringByName($host);
+        passthru("ssh ".$string);
         return 0;
     }
 }

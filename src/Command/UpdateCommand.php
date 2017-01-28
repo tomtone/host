@@ -1,24 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tgostomski
- * Date: 27.01.17
- * Time: 18:14
- */
-
 namespace Neusta\MageHost\Command;
 
-
-use Neusta\MageHost\Services\Hosts;
+use Herrera\Phar\Update\Manager;
+use Herrera\Phar\Update\Manifest;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AddCommand extends Command
+
+class UpdateCommand extends Command
 {
+    /**
+     * manifest.json Path to get Updated versions.
+     */
+    const MANIFEST_FILE = 'http://127.0.0.1:8080/magehost/manifest.json';
+
     /**
      *
      */
@@ -26,9 +23,10 @@ class AddCommand extends Command
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('host:add')
+            ->setName('self-update')
+            ->setAliases(['selfupdate','update'])
             // the short description shown while running "php bin/console list"
-            ->setDescription('interactively add new hosts');
+            ->setDescription('Update package to latest version.');
         ;
     }
 
@@ -51,24 +49,7 @@ class AddCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $helper = new QuestionHelper();
-
-        $question = new Question('Please enter name: ');
-
-        $name = $helper->ask($input, $output, $question);
-
-        $question = new Question('Please enter host: ');
-
-        $hostname = $helper->ask($input, $output, $question);
-
-        $question = new Question('Please enter username: ');
-
-        $user = $helper->ask($input, $output, $question);
-
-        $files = new Hosts();
-        $files->update($name, $hostname, $user);
-
-        $output->writeln($user . '@' .$hostname );
-        return 0;
+        $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
+        $manager->update($this->getApplication()->getVersion(), true);
     }
 }

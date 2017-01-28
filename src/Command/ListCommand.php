@@ -8,15 +8,20 @@
 
 namespace Neusta\MageHost\Command;
 
-use Neusta\MageHost\Services\Host;
+use Neusta\MageHost\Services\Hosts;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ListCommand extends Command
 {
+    const SCOPE_LOCAL = 'local';
+    const SCOPE_GLOBAL = 'global';
+    const SCOPE_PROJECT = 'project';
     /**
      *
      */
@@ -25,6 +30,16 @@ class ListCommand extends Command
         $this
             // the name of the command (the part after "bin/console")
             ->setName('host:list')
+            //
+            // configure an argument
+            ->addOption(
+                'scope',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Use local or global scope',
+                'global'
+            )
+
             // the short description shown while running "php bin/console list"
             ->setDescription('list available hosts');
         ;
@@ -49,12 +64,15 @@ class ListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
+        $scope = $input->getOption('scope');
+        if($scope != self::SCOPE_GLOBAL && $scope != self::SCOPE_LOCAL && $scope != self::SCOPE_PROJECT){
+            throw new \InvalidArgumentException(printf('Scope "%s" not defined.', $scope));
+        }
         $table = new Table($output);
 
-        $hosts = new Host();
+        $hosts = new Hosts();
         $tableData = [];
-        foreach ($hosts->getHosts() as $host){
+        foreach ($hosts->getHosts($scope) as $host){
             $tableData[] = [
                 $host['name'],
                 $host['host'],

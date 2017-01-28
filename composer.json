@@ -2,7 +2,8 @@
     "name": "neusta/magehost",
     "require": {
         "symfony/console": "^3.2",
-        "symfony/filesystem": "^3.2"
+        "symfony/filesystem": "^3.2",
+        "herrera-io/phar-update": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"

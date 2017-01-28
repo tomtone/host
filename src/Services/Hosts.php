@@ -1,12 +1,7 @@
 <?php
 namespace Neusta\MageHost\Services;
-/**
- * Created by PhpStorm.
- * User: tgostomski
- * Date: 27.01.17
- * Time: 18:24
- */
-class Host
+
+class Hosts
 {
 const DEFAULT_CONFIG_FILE = '.magehost';
     /**
@@ -28,10 +23,9 @@ const DEFAULT_CONFIG_FILE = '.magehost';
         $config[] = [
             'name' => $name,
             'host' => $host,
-            'user' => $user
+            'user' => $user,
+            'port' => 22
         ];
-
-        var_dump($config);
         $this->fs->dumpFile($fileName, json_encode($config));
     }
 
@@ -46,12 +40,12 @@ const DEFAULT_CONFIG_FILE = '.magehost';
             $this->fs->dumpFile($fileName, json_encode($defaults));
         }
 
-        $config = json_decode(file_get_contents('./'. self::DEFAULT_CONFIG_FILE));
+        $config = json_decode(file_get_contents('./'. self::DEFAULT_CONFIG_FILE), true);
 
         return $config;
     }
 
-    public function getHosts()
+    public function getHosts($scope = 'global')
     {
         $config = $this->configuration;
         return $config;
