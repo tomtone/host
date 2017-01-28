@@ -1,48 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tgostomski
- * Date: 28.01.17
- * Time: 07:03
- */
-
 namespace Neusta\MageHost\Command;
 
-use Neusta\MageHost\Services\Hosts;
+use Neusta\MageHost\Services\HostService;
+use Neusta\MageHost\Services\Validator\Scope;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ListCommand extends Command
 {
-    const SCOPE_LOCAL = 'local';
-    const SCOPE_GLOBAL = 'global';
-    const SCOPE_PROJECT = 'project';
     /**
-     *
+     * configure for host:list command.
      */
     protected function configure()
     {
         $this
-            // the name of the command (the part after "bin/console")
             ->setName('host:list')
-            //
-            // configure an argument
             ->addOption(
                 'scope',
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Use local or global scope',
-                'global'
+                null
             )
-
-            // the short description shown while running "php bin/console list"
-            ->setDescription('list available hosts');
-        ;
+            ->setDescription('list available hosts');;
     }
 
     /**
@@ -53,7 +38,7 @@ class ListCommand extends Command
      * execute() method, you set the code to execute by passing
      * a Closure to the setCode() method.
      *
-     * @param InputInterface  $input  An InputInterface instance
+     * @param InputInterface $input An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
      *
      * @return null|int null or 0 if everything went fine, or an error code
@@ -65,26 +50,28 @@ class ListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $scope = $input->getOption('scope');
-        if($scope != self::SCOPE_GLOBAL && $scope != self::SCOPE_LOCAL && $scope != self::SCOPE_PROJECT){
-            throw new \InvalidArgumentException(printf('Scope "%s" not defined.', $scope));
-        }
+        Scope::validateScope($scope);
         $table = new Table($output);
-
-        $hosts = new Hosts();
+        $hosts = new HostService();
         $tableData = [];
-        foreach ($hosts->getHosts($scope) as $host){
-            $tableData[] = [
-                $host['name'],
-                $host['host'],
-                $host['user'],
-                'local',
-            ];
+        $hosts = $hosts->getHosts($scope);
+
+        if (count($hosts) > 0) {
+            foreach ($hosts as $host) {
+                $tableData[] = [
+                    $host['name'],
+                    $host['host'],
+                    $host['user'],
+                    $host['scope'],
+                ];
+            }
+        } else {
+            $tableData[] = array(new TableCell('No entries found.', array('colspan' => 4)));
         }
 
         $table
             ->setHeaders(array('Name', 'Host', 'User', 'Scope'))
-            ->setRows($tableData)
-        ;
+            ->setRows($tableData);
         $table->render();
         return 0;
     }

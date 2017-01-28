@@ -1,6 +1,9 @@
 <?php
+/**
+ * @codeCoverageIgnore
+ */
 require dirname(__DIR__) . "/vendor/autoload.php";
-use Symfony\Component\Console\Application;
+use Neusta\MageHost\Console\Application;
 
 $app = new Application('MageHost', '1.0.0');
 $app->add(new \Neusta\MageHost\Command\ConnectCommand());

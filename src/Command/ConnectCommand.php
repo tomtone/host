@@ -1,20 +1,17 @@
 <?php
 namespace Neusta\MageHost\Command;
 
-use Neusta\MageHost\Services\Hosts;
+use Neusta\MageHost\Services\HostService;
+use Neusta\MageHost\Services\Validator\Scope;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
-/**
- * Created by PhpStorm.
- * User: tgostomski
- * Date: 27.01.17
- * Time: 18:10
- */
+
 class ConnectCommand extends Command
 {
     /**
@@ -23,11 +20,15 @@ class ConnectCommand extends Command
     protected function configure()
     {
         $this
-            // the name of the command (the part after "bin/console")
             ->setName('connect')
-            // the short description shown while running "php bin/console list"
-            ->setDescription('Get a list of availiable hosts');
-        ;
+            ->addOption(
+                'scope',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Use local or global scope',
+                null
+            )
+            ->setDescription('Get a list of availiable hosts');;
     }
 
     /**
@@ -38,7 +39,7 @@ class ConnectCommand extends Command
      * execute() method, you set the code to execute by passing
      * a Closure to the setCode() method.
      *
-     * @param InputInterface  $input  An InputInterface instance
+     * @param InputInterface $input An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
      *
      * @return null|int null or 0 if everything went fine, or an error code
@@ -49,8 +50,13 @@ class ConnectCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = new Hosts();
-        $hosts = $file->getHostsForQuestionhelper();
+        $scope = $input->getOption('scope');
+        Scope::validateScope($scope);
+
+        $hostService = new HostService();
+        $hostService->setScope($scope);
+
+        $hosts = $hostService->getHostsForQuestionhelper();
         $hosts[] = 'exit';
         $helper = new QuestionHelper();
 
@@ -63,16 +69,16 @@ class ConnectCommand extends Command
 
         $host = $helper->ask($input, $output, $question);
 
-        if($host == 'exit'){
+        if ($host == 'exit') {
             $output->writeln('exiting.');
             $output->writeln('have a nice day :-)');
             return 0;
         }
 
-        $output->writeln('You have selected: '.$host);
+        $output->writeln('You have selected: ' . $host);
         $output->writeln("establishing connection...");
-        $string = $file->getConnectionStringByName($host);
-        passthru("ssh ".$string);
+        $string = $hostService->getConnectionStringByName($host);
+        passthru("ssh " . $string);
         return 0;
     }
 }
