@@ -2,6 +2,7 @@
 namespace Neusta\MageHost\Command;
 
 use Neusta\MageHost\Services\HostService;
+use Neusta\MageHost\Services\Provider\Cli;
 use Neusta\MageHost\Services\Validator\Scope;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
@@ -78,7 +79,9 @@ class ConnectCommand extends Command
         $output->writeln('You have selected: ' . $host);
         $output->writeln("establishing connection...");
         $string = $hostService->getConnectionStringByName($host);
-        passthru("ssh " . $string);
+        if ($this->getApplication()->getEnvironment() == 'prod') {
+            Cli::passthruSsh($string);
+        }
         return 0;
     }
 }

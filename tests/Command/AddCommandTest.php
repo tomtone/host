@@ -23,7 +23,7 @@ class AddCommandTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testFirst($parameter, $expectation)
+    public function testAddWillAddHostAndReturnAddedHost($parameter, $expectation)
     {
         $baseApplication =  new Application(null,null,'dev');
         $baseApplication->add(new AddCommand());

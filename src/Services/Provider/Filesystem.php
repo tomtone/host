@@ -35,15 +35,24 @@ class Filesystem
 
     /**
      * Filesystem constructor.
+     * @codeCoverageIgnore
      *
      * @param \Symfony\Component\Filesystem\Filesystem $fs
+     * @param File $file
      */
-    public function __construct(\Symfony\Component\Filesystem\Filesystem $fs = null)
+    public function __construct(
+        \Symfony\Component\Filesystem\Filesystem $fs = null,
+        File $file = null
+    )
     {
         if(is_null($fs)){
             $fs = new \Symfony\Component\Filesystem\Filesystem();
         }
+        if(is_null($file)){
+            $file = new File();
+        }
         $this->fs = $fs;
+        $this->file = $file;
     }
 
     /**
@@ -120,7 +129,7 @@ class Filesystem
             $defaults = [];
             $this->fs->dumpFile($fileName, json_encode($defaults));
         }
-        $config = json_decode(file_get_contents($fileName), true);
+        $config = json_decode($this->file->getContents($fileName), true);
         if (is_null($config)) {
             $config = false;
             return $config;
@@ -140,12 +149,14 @@ class Filesystem
                 default:
                     $fileName = $this->getFilename(self::getHomeDir());
                     $config = $this->getLocalConfiguration();
+                    break;
             }
+            var_dump($config);
             $config[] = array_merge($this->_defaultConfig, $hostConfig);
             $this->fs->dumpFile($fileName, json_encode($config));
             $this->_isUpdate = false;
         }catch (\Exception $e){
-            // just fail
+            throw new \Exception($e->getMessage());
         }finally{
             $this->_isUpdate = false;
         }

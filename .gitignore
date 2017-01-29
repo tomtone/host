@@ -2,3 +2,5 @@
 /.magehost
 /vendor
 /magehost
+/docs
+!/docs/.gitkeep
