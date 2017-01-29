@@ -8,7 +8,13 @@
 
 namespace Neusta\MageHost\Services\Provider;
 
-
+/**
+ * Class Cli
+ * Passing by a php method for testing purposes.
+ *
+ * @codeCoverageIgnore
+ * @package Neusta\MageHost\Services\Provider
+ */
 class Cli
 {
     public static function passthruSsh($string)

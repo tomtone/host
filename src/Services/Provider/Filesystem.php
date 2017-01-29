@@ -151,7 +151,6 @@ class Filesystem
                     $config = $this->getLocalConfiguration();
                     break;
             }
-            var_dump($config);
             $config[] = array_merge($this->_defaultConfig, $hostConfig);
             $this->fs->dumpFile($fileName, json_encode($config));
             $this->_isUpdate = false;

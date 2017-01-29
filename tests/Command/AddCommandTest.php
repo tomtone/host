@@ -4,11 +4,34 @@ namespace Neusta\MageHost\Tests\Command;
 
 use Neusta\MageHost\Command\AddCommand;
 use Neusta\MageHost\Console\Application;
+use Neusta\MageHost\Services\HostService;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class AddCommandTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @var HostService | \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $hostServiceMock;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\MageHost\\Services\\HostService")
+            ->disableOriginalConstructor()
+            ->setMethods(['getHostsForQuestionhelper','getConnectionStringByName'])
+            ->getMock()
+        ;
+
+        $this->hostServiceMock->method('getHostsForQuestionhelper')
+            ->willReturn([
+                'SomeHost'
+            ])
+        ;
+    }
+
     public function getEnvironmentDataProvider()
     {
         return [
@@ -26,7 +49,7 @@ class AddCommandTest extends \PHPUnit_Framework_TestCase
     public function testAddWillAddHostAndReturnAddedHost($parameter, $expectation)
     {
         $baseApplication =  new Application(null,null,'dev');
-        $baseApplication->add(new AddCommand());
+        $baseApplication->add(new AddCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('host:add');
         $commandTester = new CommandTester($command);

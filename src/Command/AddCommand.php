@@ -9,7 +9,6 @@
 namespace Neusta\MageHost\Command;
 
 use Neusta\MageHost\Services\HostService;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
@@ -17,7 +16,7 @@ use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AddCommand extends Command
+class AddCommand extends AbstractCommand
 {
     /**
      *
@@ -67,7 +66,7 @@ class AddCommand extends Command
             ],
             0
         );
-        $question->setErrorMessage('Host #%s is invalid.');
+        $question->setErrorMessage('Scope #%s is invalid.');
         $scope = $helper->ask($input, $output, $question);
         if ($this->getApplication()->getEnvironment() == 'prod') {
             $hostService = new HostService();

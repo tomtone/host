@@ -8,7 +8,14 @@ use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
+/**
+ * Class UpdateCommand
+ * Only utilizing a given Library.
+ *
+ * @codeCoverageIgnore
+ *
+ * @package Neusta\MageHost\Command
+ */
 class UpdateCommand extends Command
 {
     /**

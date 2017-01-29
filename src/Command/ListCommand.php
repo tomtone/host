@@ -3,7 +3,6 @@ namespace Neusta\MageHost\Command;
 
 use Neusta\MageHost\Services\HostService;
 use Neusta\MageHost\Services\Validator\Scope;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -11,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListCommand extends Command
+class ListCommand extends AbstractCommand
 {
     /**
      * configure for host:list command.
@@ -52,9 +51,8 @@ class ListCommand extends Command
         $scope = $input->getOption('scope');
         Scope::validateScope($scope);
         $table = new Table($output);
-        $hosts = new HostService();
         $tableData = [];
-        $hosts = $hosts->getHosts($scope);
+        $hosts = $this->_hostService->getHosts($scope);
 
         if (count($hosts) > 0) {
             foreach ($hosts as $host) {

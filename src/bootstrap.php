@@ -1,7 +1,5 @@
 <?php
-/**
- * @codeCoverageIgnore
- */
+//@codeCoverageIgnoreStart
 require dirname(__DIR__) . "/vendor/autoload.php";
 use Neusta\MageHost\Console\Application;
 
@@ -11,3 +9,4 @@ $app->add(new \Neusta\MageHost\Command\ListCommand());
 $app->add(new \Neusta\MageHost\Command\AddCommand());
 $app->add(new \Neusta\MageHost\Command\UpdateCommand());
 $app->run();
+//@codeCoverageIgnoreEnd
