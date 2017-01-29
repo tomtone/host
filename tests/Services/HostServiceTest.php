@@ -1,13 +1,13 @@
 <?php
-namespace Neusta\MageHost\Tests\Services;
+namespace Neusta\Hosts\Tests\Services;
 
 
-use Neusta\MageHost\Services\HostService;
+use Neusta\Hosts\Services\HostService;
 
 class HostServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Neusta\MageHost\Services\Provider\Filesystem | \PHPUnit_Framework_MockObject_MockObject
+     * @var \Neusta\Hosts\Services\Provider\Filesystem | \PHPUnit_Framework_MockObject_MockObject
      */
     private $fileSystemMock;
 
@@ -18,7 +18,7 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->fileSystemMock = $this->getMockBuilder("\\Neusta\\MageHost\\Services\\Provider\\Filesystem")
+        $this->fileSystemMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\Provider\\Filesystem")
             ->disableOriginalConstructor()
             ->setMethods([
                 'addHostToConfiguration',

@@ -1,7 +1,7 @@
 <?php
-namespace Neusta\MageHost\Services;
+namespace Neusta\Hosts\Services;
 
-use Neusta\MageHost\Services\Provider\Filesystem;
+use Neusta\Hosts\Services\Provider\Filesystem;
 
 class HostService
 {

@@ -1,10 +1,10 @@
 <?php
-namespace Neusta\MageHost\Services\Provider;
+namespace Neusta\Hosts\Services\Provider;
 
 /**
  * Class File
  * @codeCoverageIgnore
- * @package Neusta\MageHost\Services\Provider
+ * @package Neusta\Hosts\Services\Provider
  */
 class File
 {

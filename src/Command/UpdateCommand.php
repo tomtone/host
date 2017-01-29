@@ -1,5 +1,5 @@
 <?php
-namespace Neusta\MageHost\Command;
+namespace Neusta\Hosts\Command;
 
 use Herrera\Phar\Update\Manager;
 use Herrera\Phar\Update\Manifest;
@@ -14,14 +14,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @codeCoverageIgnore
  *
- * @package Neusta\MageHost\Command
+ * @package Neusta\Hosts\Command
  */
 class UpdateCommand extends Command
 {
     /**
      * manifest.json Path to get Updated versions.
      */
-    const MANIFEST_FILE = 'http://127.0.0.1:8080/magehost/manifest.json';
+    const MANIFEST_FILE = 'http://127.0.0.1:8080/Hosts/manifest.json';
 
     /**
      *

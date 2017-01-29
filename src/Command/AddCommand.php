@@ -6,9 +6,9 @@
  * Time: 18:14
  */
 
-namespace Neusta\MageHost\Command;
+namespace Neusta\Hosts\Command;
 
-use Neusta\MageHost\Services\HostService;
+use Neusta\Hosts\Services\HostService;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;

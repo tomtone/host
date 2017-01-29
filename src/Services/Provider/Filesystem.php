@@ -1,17 +1,17 @@
 <?php
-namespace Neusta\MageHost\Services\Provider;
+namespace Neusta\Hosts\Services\Provider;
 
 class Filesystem
 {
     /**
      * global configuration for all devs.
      */
-    const GLOBAL_CONFIGURATION_FILE_PATH = 'http://127.0.0.1:8080/magehost/hosts.json';
+    const GLOBAL_CONFIGURATION_FILE_PATH = 'http://127.0.0.1:8080/hosts/hosts.json';
 
     /**
      * configuration file name.
      */
-    const CONFIGURATION_FILE_NAME = '.magehost';
+    const CONFIGURATION_FILE_NAME = '.hosts';
 
     /**
      * Determines if currently adding new Data to avoid setting scope.

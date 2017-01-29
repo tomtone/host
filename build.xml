@@ -5,8 +5,9 @@ Phing build file to create a executable phar file by defined src.
 Build phar with:
     phing dist
 -->
-<project name="magehost" default="dist" basedir=".">
+<project name="hosts" default="dist" basedir=".">
     <taskdef name="patched-pharpackage" classname="build.phar.tasks.PatchedPharPackageTask" />
+    <taskdef name="update-manifest" classname="build.phar.tasks.UpdateManifest" />
     <property name="phar" value="${phing.project.name}.phar"/>
     <fileset dir="." id="root_folder">
         <include name="config.yaml" />
@@ -58,6 +59,7 @@ Build phar with:
         </patched-pharpackage>
         <!-- make phar executable -->
         <chmod file="./${phar}" mode="775" />
+        <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="http://127.0.0.1:8080/hosts/downloads/"/>
     </target>
     <target name="install">
         <copy file="${project.basedir}/${phar}" tofile="${user.home}/bin/${phing.project.name}" overwrite="true"/>

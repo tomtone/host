@@ -1,12 +1,12 @@
 <?php
-namespace Neusta\MageHost\Test\Services\Provider;
+namespace Neusta\Hosts\Test\Services\Provider;
 
-use Neusta\MageHost\Services\Provider\Filesystem;
+use Neusta\Hosts\Services\Provider\Filesystem;
 
 /**
  * Class FilesystemTest
  *
- * @package Neusta\MageHost\Test\Services\Provider
+ * @package Neusta\Hosts\Test\Services\Provider
  */
 class FilesystemTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
     private $fileSystem;
 
     /**
-     * @var \Neusta\MageHost\Services\Provider\File | \PHPUnit_Framework_MockObject_MockObject
+     * @var \Neusta\Hosts\Services\Provider\File | \PHPUnit_Framework_MockObject_MockObject
      */
     private $file;
 
@@ -36,7 +36,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['exists', 'dumpFile'])
             ->getMock();
-        $this->file = $this->getMockBuilder("\\Neusta\\MageHost\\Services\\Provider\\File")
+        $this->file = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\Provider\\File")
             ->disableOriginalConstructor()
             ->setMethods(['getContents'])
             ->getMock();
@@ -130,12 +130,12 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $this->fileSystem->expects($this->once())
             ->method('dumpFile')
             ->with(
-                '/some/home/path/.magehost',
+                '/some/home/path/.hosts',
                 json_encode([])
             );
         $this->file->expects($this->once())
             ->method('getContents')
-            ->with('/some/home/path/.magehost')
+            ->with('/some/home/path/.hosts')
             ->willReturn(json_encode([['name' => 'HostName']]));
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
@@ -158,12 +158,12 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $this->fileSystem->expects($this->once())
             ->method('dumpFile')
             ->with(
-                './.magehost',
+                './.hosts',
                 json_encode([])
             );
         $this->file->expects($this->once())
             ->method('getContents')
-            ->with('./.magehost')
+            ->with('./.hosts')
             ->willReturn(json_encode([['name' => 'HostName']]));
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
@@ -189,7 +189,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ;
         $this->file->expects($this->once())
             ->method('getContents')
-            ->with('http://127.0.0.1:8080/magehost/hosts.json')
+            ->with('http://127.0.0.1:8080/hosts/hosts.json')
             ->willReturn(json_encode([['name' => 'HostName']]));
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
@@ -204,7 +204,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         return [
             'local/default Scope' => [
                 'local',
-                '/some/home/path/.magehost',
+                '/some/home/path/.hosts',
                 [[
                     'name' => 'HostName',
                     'host' => '',
@@ -214,7 +214,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ],
             'project Scope' => [
                 'project',
-                './.magehost',
+                './.hosts',
                 [[
                     'name' => 'HostName',
                     'host' => '',
@@ -268,7 +268,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')
             ->with(
-                '/some/home/path/.magehost',
+                '/some/home/path/.hosts',
                 json_encode([[
                     'name' => 'HostName',
                     'host' => '',
@@ -280,7 +280,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         ;
         $this->file->expects($this->any())
             ->method('getContents')
-            ->with('/some/home/path/.magehost')
+            ->with('/some/home/path/.hosts')
             ->willReturn(json_encode([]));
 
         $this->expectException("Exception");

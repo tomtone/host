@@ -6,16 +6,16 @@
  * Time: 08:08
  */
 
-namespace Neusta\MageHost\Command;
+namespace Neusta\Hosts\Command;
 
 
-use Neusta\MageHost\Services\HostService;
+use Neusta\Hosts\Services\HostService;
 use Symfony\Component\Console\Command\Command;
 
 /**
  * Class AbstractCommand
  * @codeCoverageIgnore
- * @package Neusta\MageHost\Command
+ * @package Neusta\Hosts\Command
  */
 abstract class AbstractCommand extends Command
 {

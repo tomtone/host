@@ -6,14 +6,14 @@
  * Time: 07:43
  */
 
-namespace Neusta\MageHost\Services\Provider;
+namespace Neusta\Hosts\Services\Provider;
 
 /**
  * Class Cli
  * Passing by a php method for testing purposes.
  *
  * @codeCoverageIgnore
- * @package Neusta\MageHost\Services\Provider
+ * @package Neusta\Hosts\Services\Provider
  */
 class Cli
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Neusta\MageHost\Console;
+namespace Neusta\Hosts\Console;
 
 class Application extends \Symfony\Component\Console\Application
 {

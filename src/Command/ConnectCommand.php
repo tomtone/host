@@ -1,9 +1,9 @@
 <?php
-namespace Neusta\MageHost\Command;
+namespace Neusta\Hosts\Command;
 
-use Neusta\MageHost\Services\HostService;
-use Neusta\MageHost\Services\Provider\Cli;
-use Neusta\MageHost\Services\Validator\Scope;
+use Neusta\Hosts\Services\HostService;
+use Neusta\Hosts\Services\Provider\Cli;
+use Neusta\Hosts\Services\Validator\Scope;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;

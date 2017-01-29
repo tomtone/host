@@ -1,10 +1,10 @@
 <?php
 
-namespace Neusta\MageHost\Tests\Command;
+namespace Neusta\Hosts\Tests\Command;
 
-use Neusta\MageHost\Command\AddCommand;
-use Neusta\MageHost\Console\Application;
-use Neusta\MageHost\Services\HostService;
+use Neusta\Hosts\Command\AddCommand;
+use Neusta\Hosts\Console\Application;
+use Neusta\Hosts\Services\HostService;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -19,7 +19,7 @@ class AddCommandTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\MageHost\\Services\\HostService")
+        $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
             ->setMethods(['getHostsForQuestionhelper','getConnectionStringByName'])
             ->getMock()

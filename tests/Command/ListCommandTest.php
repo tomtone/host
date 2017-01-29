@@ -1,10 +1,10 @@
 <?php
 
-namespace Neusta\MageHost\Tests\Command;
+namespace Neusta\Hosts\Tests\Command;
 
-use Neusta\MageHost\Command\ListCommand;
-use Neusta\MageHost\Console\Application;
-use Neusta\MageHost\Services\HostService;
+use Neusta\Hosts\Command\ListCommand;
+use Neusta\Hosts\Console\Application;
+use Neusta\Hosts\Services\HostService;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ListCommandTest extends \PHPUnit_Framework_TestCase
@@ -18,7 +18,7 @@ class ListCommandTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\MageHost\\Services\\HostService")
+        $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
             ->setMethods(['getHosts'])
             ->getMock()

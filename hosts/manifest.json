@@ -1,0 +1,14 @@
+[
+  {
+    "name": "hosts.phar",
+    "sha1": "bd5464ddf4dbbb4ce4411e69234276cbbf3aacca",
+    "url": "http://127.0.0.1:8080/magehost/downloads/hosts-v1.1.0.phar",
+    "version": "1.1.0"
+  },
+  {
+    "name": "hosts.phar",
+    "sha1": "c40f4650f707c6a5c3db5c15c2edc103d24c2bcd",
+    "url": "http://127.0.0.1:8080/magehost/downloads/hosts-v1.2.0.phar",
+    "version": "1.2.0"
+  }
+]

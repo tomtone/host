@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 
-namespace Neusta\MageHost\Services\Validator;
+namespace Neusta\Hosts\Services\Validator;
 
 
 class Scope

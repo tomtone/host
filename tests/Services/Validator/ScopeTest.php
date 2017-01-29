@@ -1,8 +1,8 @@
 <?php
-namespace Neusta\MageHost\Test\Services\Validator;
+namespace Neusta\Hosts\Test\Services\Validator;
 
 
-use Neusta\MageHost\Services\Validator\Scope;
+use Neusta\Hosts\Services\Validator\Scope;
 
 class ScopeTest extends \PHPUnit_Framework_TestCase
 {

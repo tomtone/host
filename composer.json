@@ -1,5 +1,5 @@
 {
-    "name": "neusta/magehost",
+    "name": "neusta/hosts",
     "require": {
         "symfony/console": "^3.2",
         "symfony/filesystem": "^3.2",
@@ -10,8 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Neusta\\MageHost\\": "src/",
-            "Neusta\\MageHost\\Tests\\": "tests/"
+            "Neusta\\Hosts\\": "src/",
+            "Neusta\\Hosts\\Tests\\": "tests/"
         }
     }
 }
