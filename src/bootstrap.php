@@ -8,5 +8,6 @@ $app->add(new \Neusta\Hosts\Command\ConnectCommand());
 $app->add(new \Neusta\Hosts\Command\ListCommand());
 $app->add(new \Neusta\Hosts\Command\AddCommand());
 $app->add(new \Neusta\Hosts\Command\UpdateCommand());
+$app->add(new \Neusta\Hosts\Command\InitCommand());
 $app->run();
 //@codeCoverageIgnoreEnd

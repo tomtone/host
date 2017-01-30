@@ -20,7 +20,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
-            ->setMethods(['getHostsForQuestionhelper','getConnectionStringByName'])
+            ->setMethods(['getHostsForQuestionhelper','getConnectionStringByName','getHosts'])
             ->getMock()
             ;
 
@@ -61,7 +61,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
     public function testConnectToHostWillExitOnChoosingExitOption()
     {
         $baseApplication =  new Application(null,null,'dev');
-        $baseApplication->add(new ConnectCommand());
+        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);

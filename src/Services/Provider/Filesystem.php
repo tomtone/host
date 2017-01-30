@@ -1,6 +1,15 @@
 <?php
 namespace Neusta\Hosts\Services\Provider;
 
+use Neusta\Hosts\Exception\HostAlreadySet;
+
+/**
+ * Class Filesystem
+ *
+ * @ToDo move config to .hosts folder, add config file and hosts file
+ *
+ * @package Neusta\Hosts\Services\Provider
+ */
 class Filesystem
 {
     /**
@@ -88,7 +97,7 @@ class Filesystem
     {
         $fileName = $this->getFilename(self::getHomeDir());
         $config = $this->getConfigurationFile($fileName);
-        $config = $this->addScope($config, 'local');
+        $config = $this->addScope($config['hosts'], 'local');
         return $config;
     }
 
@@ -101,7 +110,7 @@ class Filesystem
     {
         $filename = $this->getFilename();
         $config = $this->getConfigurationFile($filename);
-        $config = $this->addScope($config, 'project');
+        $config = $this->addScope($config['hosts'], 'project');
         return $config;
     }
 
@@ -112,9 +121,12 @@ class Filesystem
      */
     public function getGlobalConfiguration()
     {
-        $fileName = self::GLOBAL_CONFIGURATION_FILE_PATH;
-        $config = $this->getConfigurationFile($fileName, false);
-        $config = $this->addScope($config, 'global');
+        $fileName = $this->getGlobalUrlFromConfig();
+        $config = [];
+        if($fileName !== false) {
+            $config = $this->getConfigurationFile($fileName, false);
+            $config = $this->addScope($config['hosts'], 'global');
+        }
         return $config;
     }
 
@@ -126,7 +138,7 @@ class Filesystem
     {
         if (!$this->fs->exists($fileName) && $createIfNotExist) {
             // generate a empty array for local configuration
-            $defaults = [];
+            $defaults = ['hosts' => []];
             $this->fs->dumpFile($fileName, json_encode($defaults));
         }
         $config = json_decode($this->file->getContents($fileName), true);
@@ -151,7 +163,7 @@ class Filesystem
                     $config = $this->getLocalConfiguration();
                     break;
             }
-            $config[] = array_merge($this->_defaultConfig, $hostConfig);
+            $config['hosts'][] = array_merge($this->_defaultConfig, $hostConfig);
             $this->fs->dumpFile($fileName, json_encode($config));
             $this->_isUpdate = false;
         }catch (\Exception $e){
@@ -162,20 +174,24 @@ class Filesystem
     }
 
     /**
-     * Add scope to each entry in config.
+     * @param $hostUrl
+     * @param bool $override
      *
-     * @param $config
-     * @param $scope
+     * @throws HostAlreadySet
      */
-    private function addScope($config, $scope)
+    public function setGlobalHostsUrl($hostUrl, $override = false)
     {
-        // do not add Scope during update. Scope will always be set when reading configuration.
-        if(!$this->_isUpdate) {
-            foreach ($config as $key => $entry) {
-                $config[$key]['scope'] = $scope;
-            }
+        $fileName = $this->getFilename(self::getHomeDir());
+        $config = $this->getConfigurationFile($fileName);
+
+        if(array_key_exists('hosts_url', $config) && $override){
+            $config['hosts_url'] = $hostUrl;
+        }elseif(array_key_exists('hosts_url', $config)){
+            throw new HostAlreadySet($config['hosts_url']);
+        }else{
+            $config['hosts_url'] = $hostUrl;
         }
-        return $config;
+        $this->fs->dumpFile($fileName, json_encode($config));
     }
 
     /**
@@ -188,5 +204,43 @@ class Filesystem
     {
         $fileName = $baseDir . DIRECTORY_SEPARATOR . self::CONFIGURATION_FILE_NAME;
         return $fileName;
+    }
+
+    /**
+     * Add scope to each entry in config.
+     *
+     * @param $config
+     * @param $scope
+     *
+     * @return mixed
+     */
+    private function addScope($config, $scope)
+    {
+        // do not add Scope during update. Scope will always be set when reading configuration.
+        if(!$this->_isUpdate && is_array($config)) {
+            foreach ($config as $key => $entry) {
+                $config[$key]['scope'] = $scope;
+            }
+        }
+        if(!is_array($config)) $config = [];
+        return $config;
+    }
+
+    /**
+     * Get global URL from config.
+     *
+     * @return bool | string
+     */
+    private function getGlobalUrlFromConfig()
+    {
+        $fileName = $this->getFilename(self::getHomeDir());
+        $config = $this->getConfigurationFile($fileName, false);
+
+        $hostUrl = false;
+        if(array_key_exists('hosts_url',$config)) {
+            $hostUrl = $config['hosts_url'];
+        }
+
+        return $hostUrl;
     }
 }

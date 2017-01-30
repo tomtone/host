@@ -5,7 +5,7 @@ Phing build file to create a executable phar file by defined src.
 Build phar with:
     phing dist
 -->
-<project name="hosts" default="dist" basedir=".">
+<project name="hosts" default="dist_unix" basedir=".">
     <taskdef name="patched-pharpackage" classname="build.phar.tasks.PatchedPharPackageTask" />
     <taskdef name="update-manifest" classname="build.phar.tasks.UpdateManifest" />
     <property name="phar" value="${phing.project.name}.phar"/>

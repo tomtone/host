@@ -1,7 +1,9 @@
-[
-  {
-    "name": "SomeHost",
-    "host": "host",
-    "user": "user"
-  }
-]
+{
+  "hosts": [
+    {
+      "name": "SomeHost",
+      "host": "host",
+      "user": "user"
+    }
+  ]
+}

@@ -56,14 +56,11 @@ class UpdateManifest extends Task
      */
     public function main() {
         $sha1 = sha1_file($this->baseDir . 'hosts.phar');
-        print ($sha1);
 
         $manifest = file_get_contents($this->manifestPath);
 
         if(strlen($manifest) > 0){
             $manifest = json_decode($manifest);
         }
-
-        print_r($manifest);
     }
 }
