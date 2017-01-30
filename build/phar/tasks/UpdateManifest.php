@@ -16,6 +16,11 @@ class UpdateManifest extends Task
     private $manifestPath;
 
     /**
+     * @var string
+     */
+    private $downloadPath;
+
+    /**
      * The setter for the attribute "basedir"
      */
     public function setBaseDir($baseDir)
@@ -58,7 +63,7 @@ class UpdateManifest extends Task
         if(strlen($manifest) > 0){
             $manifest = json_decode($manifest);
         }
-        
+
         print_r($manifest);
     }
 }
