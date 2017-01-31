@@ -68,7 +68,7 @@ class InitCommand extends Command
     {
         $output->writeln("Still work in Progress!");
         return 0;
-        
+
         $output->writeln("Checking for local configuration file..");
         if(!$this->_initService->localConfigurationExist()){
             $output->writeln("Creating empty local configuration file.");

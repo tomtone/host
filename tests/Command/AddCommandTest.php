@@ -53,7 +53,7 @@ class AddCommandTest extends \PHPUnit_Framework_TestCase
 
         $command = $baseApplication->find('host:add');
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs(['Test Host','some.weired.host','username',$parameter]);
+        $commandTester->setInputs(['Test Host','some.weired.host','username',22, $parameter]);
         $commandTester->execute(array(
             'command'  => $command->getName(),
         ));

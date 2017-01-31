@@ -58,6 +58,9 @@ class AddCommand extends AbstractCommand
         $question = new Question('Please enter username: ');
         $user = $helper->ask($input, $output, $question);
 
+        $question = new Question('Please enter Port:[22] ', 22);
+        $port = $helper->ask($input, $output, $question);
+
         $question = new ChoiceQuestion(
             'Please select a host:',
             [
@@ -70,7 +73,7 @@ class AddCommand extends AbstractCommand
         $scope = $helper->ask($input, $output, $question);
         if ($this->getApplication()->getEnvironment() == 'prod') {
             $this->_hostService->setScope($scope);
-            $this->_hostService->update($name, $hostname, $user);
+            $this->_hostService->update($name, $hostname, $user, $port);
         }
         $output->writeln('Added Entry: ' .$user . '@' . $hostname . ' for ' . $scope . ' scope.');
         return 0;

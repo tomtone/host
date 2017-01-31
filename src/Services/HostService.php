@@ -36,15 +36,16 @@ class HostService
      * @param $name
      * @param $host
      * @param $user
+     * @param int $port
      * @param string $scope
      */
-    public function update($name, $host, $user, $scope = 'local')
+    public function update($name, $host, $user, $port = 22, $scope = 'local')
     {
         $config = [
             'name' => $name,
             'host' => $host,
             'user' => $user,
-            'port' => 22
+            'port' => $port
         ];
 
         $this->fs->addHostToConfiguration($config, $this->_scope);
