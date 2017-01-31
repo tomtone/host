@@ -23,7 +23,7 @@ class HostService
     public function __construct(Filesystem $fs = null)
     {
         //@codeCoverageIgnoreStart
-        if(is_null($fs)){
+        if (is_null($fs)) {
             $fs = new Filesystem();
         }
         //@codeCoverageIgnoreEnd
@@ -53,7 +53,7 @@ class HostService
 
     public function getHosts($scope)
     {
-        switch ($scope){
+        switch ($scope) {
             case 'local':
                 $config = $this->fs->getLocalConfiguration();
                 break;
@@ -63,9 +63,23 @@ class HostService
             default:
                 $local = $this->fs->getLocalConfiguration();
                 $project = $this->fs->getProjectConfiguration();
-                $global = $this->fs->getGlobalConfiguration();
-                $config = array_merge($local, $project, $global);
+                $global = $this->fs->getGlobalConfiguration(); // temporary disabled.
+                $config = $this->mergeConfigs($local, $project, $global);
                 break;
+        }
+        return $config['hosts'];
+    }
+
+    private function mergeConfigs()
+    {
+        $args = func_get_args();
+        $config = ['hosts' => []];
+        foreach ($args as $hosts){
+            if(array_key_exists('hosts', $hosts)){
+                foreach ($hosts['hosts'] as $entry){
+                    $config['hosts'][] = $entry;
+                }
+            }
         }
         return $config;
     }

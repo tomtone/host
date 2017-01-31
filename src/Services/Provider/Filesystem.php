@@ -97,7 +97,7 @@ class Filesystem
     {
         $fileName = $this->getFilename(self::getHomeDir());
         $config = $this->getConfigurationFile($fileName);
-        $config = $this->addScope($config['hosts'], 'local');
+        $config = $this->addScope($config, 'local');
         return $config;
     }
 
@@ -110,7 +110,7 @@ class Filesystem
     {
         $filename = $this->getFilename();
         $config = $this->getConfigurationFile($filename);
-        $config = $this->addScope($config['hosts'], 'project');
+        $config = $this->addScope($config, 'project');
         return $config;
     }
 
@@ -125,7 +125,7 @@ class Filesystem
         $config = [];
         if($fileName !== false) {
             $config = $this->getConfigurationFile($fileName, false);
-            $config = $this->addScope($config['hosts'], 'global');
+            $config = $this->addScope($config, 'global');
         }
         return $config;
     }
@@ -218,11 +218,11 @@ class Filesystem
     {
         // do not add Scope during update. Scope will always be set when reading configuration.
         if(!$this->_isUpdate && is_array($config)) {
-            foreach ($config as $key => $entry) {
-                $config[$key]['scope'] = $scope;
+            foreach ($config['hosts'] as $key => $entry) {
+                $config['hosts'][$key]['scope'] = $scope;
             }
         }
-        if(!is_array($config)) $config = [];
+        if(!is_array($config)) $config = ['hosts' => []];
         return $config;
     }
 

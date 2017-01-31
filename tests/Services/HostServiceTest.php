@@ -85,9 +85,9 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHostWillCallConfigurationsDependingOnGivenScope($scope, $localCall, $projectCall, $globalCall, $expectation)
     {
-        $this->fileSystemMock->method('getGlobalConfiguration')->willReturn(['global']);
-        $this->fileSystemMock->method('getProjectConfiguration')->willReturn(['project']);
-        $this->fileSystemMock->method('getLocalConfiguration')->willReturn(['local']);
+        $this->fileSystemMock->method('getGlobalConfiguration')->willReturn(['hosts' => ['global']]);
+        $this->fileSystemMock->method('getProjectConfiguration')->willReturn(['hosts' => ['project']]);
+        $this->fileSystemMock->method('getLocalConfiguration')->willReturn(['hosts' => ['local']]);
 
         $this->fileSystemMock
             ->expects($localCall)
@@ -116,10 +116,10 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getLocalConfiguration')
             ->willReturn([
-                ['name' => 'HostName'],
-                ['name' => 'AnotherHostName'],
-            ])
-        ;
+                'hosts' => [
+                    ['name' => 'HostName'],
+                    ['name' => 'AnotherHostName'],
+                ]]);
 
         $hostService = new HostService($this->fileSystemMock);
         $hostService->setScope('local');
@@ -133,13 +133,14 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getLocalConfiguration')
             ->willReturn([
-                [
-                    'name' => 'HostName',
-                    'user' => 'jon.doe',
-                    'host' => 'some.weired.host'
-                ],
-            ])
-        ;
+                'hosts' => [
+                    [
+                        'name' => 'HostName',
+                        'user' => 'jon.doe',
+                        'host' => 'some.weired.host'
+                    ],
+                ]
+            ]);
 
         $hostService = new HostService($this->fileSystemMock);
         $hostService->setScope('local');

@@ -142,7 +142,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $result = $filesystem->getLocalConfiguration();
 
-        $this->assertSame([['name' => 'HostName', 'scope' => 'local']], $result);
+        $this->assertSame(['hosts' => [['name' => 'HostName', 'scope' => 'local']]], $result);
     }
 
     /**
@@ -170,7 +170,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $result = $filesystem->getProjectConfiguration();
 
-        $this->assertSame([['name' => 'HostName', 'scope' => 'project']], $result);
+        $this->assertSame(['hosts' =>[['name' => 'HostName', 'scope' => 'project']]], $result);
     }
 
     /**
@@ -386,7 +386,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $result = $filesystem->getGlobalConfiguration();
 
-        $this->assertSame([['host' => 'someHost', 'scope' => 'global']], $result);
+        $this->assertSame(["hosts_url" => "someHost", 'hosts' =>[['host' => 'someHost', 'scope' => 'global']]], $result);
     }
 
     public function testGetGlobalConfigurationWillReturnEmptyConfigArrayIfHostUrlNotFoundInConfugration()
