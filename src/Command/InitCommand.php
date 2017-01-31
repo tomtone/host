@@ -20,6 +20,7 @@ class InitCommand extends Command
 
     /**
      * Constructor.
+     * @codeCoverageIgnore
      *
      * @param string|null $name The name of the command; passing null means it must be set in configure()
      *
@@ -35,7 +36,9 @@ class InitCommand extends Command
     }
 
     /**
+     * Announce name and description so command could be called.
      *
+     * @codeCoverageIgnore
      */
     protected function configure()
     {

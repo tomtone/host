@@ -58,7 +58,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $result = $filesystem->getHomeDir();
 
-        $this->assertSame('/homeDrive/homePath',$result);
+        $this->assertSame('/homeDrive/homePath', $result);
     }
 
     /**
@@ -187,8 +187,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->willReturn(false);
 
         $this->fileSystem->expects($this->never())
-            ->method('dumpFile')
-            ;
+            ->method('dumpFile');
         $this->file->expects($this->once())
             ->method('getContents')
             ->with('http://127.0.0.1:8080/hosts/hosts.json')
@@ -244,8 +243,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $expectedFileName,
                 json_encode($expectedData)
-            )
-        ;
+            );
         $this->file->expects($this->any())
             ->method('getContents')
             ->with($expectedFileName)
@@ -278,8 +276,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
                     'port' => 22
                 ]]])
             )
-            ->willThrowException(new \Exception('SomeError'))
-        ;
+            ->willThrowException(new \Exception('SomeError'));
         $this->file->expects($this->any())
             ->method('getContents')
             ->with('/some/home/path/.hosts')
@@ -291,5 +288,130 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
         $filesystem->addHostToConfiguration(['name' => 'HostName']);
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function testSetGlobalHostsUrlWillAddGivenUrlToConfigFile()
+    {
+        $this->fileSystem
+            ->method('exists')
+            ->willReturn(true);
+
+        $this->file->expects($this->any())
+            ->method('getContents')
+            ->with('/some/home/path/.hosts')
+            ->willReturn(json_encode(['hosts' => []]));
+
+        $this->fileSystem->expects($this->any())
+            ->method('dumpFile')
+            ->with('/some/home/path/.hosts', '{"hosts":[],"hosts_url":"someHost"}');
+
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $filesystem->setGlobalHostsUrl('someHost');
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function testSetGlobalHostsUrlWillThrowExceptionIfOverrideIsSetToFalseAndHostAlreadyExist()
+    {
+        $this->fileSystem
+            ->method('exists')
+            ->willReturn(true);
+
+        $this->file->expects($this->any())
+            ->method('getContents')
+            ->with('/some/home/path/.hosts')
+            ->willReturn(json_encode(['hosts_url' => 'someHost', 'hosts' => []]));
+
+        $this->expectException("\\Neusta\\Hosts\\Exception\\HostAlreadySet");
+
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $filesystem->setGlobalHostsUrl('someHost');
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function testSetGlobalHostsUrlWillAddGivenUrlToConfigFile_EvenIfExistWhenPassingOverrideOption()
+    {
+        $this->fileSystem
+            ->method('exists')
+            ->willReturn(true);
+
+        $this->file->expects($this->any())
+            ->method('getContents')
+            ->with('/some/home/path/.hosts')
+            ->willReturn(json_encode(["hosts_url" => "someHost", 'hosts' => []]));
+
+        $this->fileSystem->expects($this->any())
+            ->method('dumpFile')
+            ->with('/some/home/path/.hosts', '{"hosts_url":"someHost","hosts":[]}');
+
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $filesystem->setGlobalHostsUrl('someHost', true);
+    }
+
+    public function testGetGlobalConfigurationWillReturnConfigArrayIfPathIsSet()
+    {
+        $this->fileSystem
+            ->method('exists')
+            ->willReturn(true);
+
+        $this->file->expects($this->any())
+            ->method('getContents')
+            ->withConsecutive(
+                [
+                    '/some/home/path/.hosts',
+                ]
+            )
+            ->willReturn(json_encode(["hosts_url" => "someHost", 'hosts' => [['host' => 'someHost']]]));
+
+        $this->fileSystem->expects($this->any())
+            ->method('dumpFile')
+            ->with('/some/home/path/.hosts', '{"hosts_url":"someHost","hosts":[]}');
+
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $result = $filesystem->getGlobalConfiguration();
+
+        $this->assertSame([['host' => 'someHost', 'scope' => 'global']], $result);
+    }
+
+    public function testGetGlobalConfigurationWillReturnEmptyConfigArrayIfHostUrlNotFoundInConfugration()
+    {
+        $this->fileSystem
+            ->method('exists')
+            ->willReturn(true);
+
+        $this->file->expects($this->any())
+            ->method('getContents')
+            ->withConsecutive(
+                [
+                    '/some/home/path/.hosts',
+                ]
+            )
+            ->willReturn(json_encode(['hosts' => [['host' => 'someHost']]]));
+
+        $this->fileSystem->expects($this->any())
+            ->method('dumpFile')
+            ->with('/some/home/path/.hosts', '{"hosts_url":"someHost","hosts":[]}');
+
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $result = $filesystem->getGlobalConfiguration();
+
+        $this->assertSame([], $result);
     }
 }

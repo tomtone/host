@@ -3,6 +3,11 @@ namespace Neusta\Hosts\Exception;
 
 use Exception;
 
+/**
+ * Class HostAlreadySet
+ * @codeCoverageIgnore
+ * @package Neusta\Hosts\Exception
+ */
 class HostAlreadySet extends \Exception
 {
     private $_value;

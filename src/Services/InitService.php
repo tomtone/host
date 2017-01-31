@@ -18,6 +18,7 @@ class InitService
 
     /**
      * InitService constructor.
+     * @codeCoverageIgnore
      * @param Filesystem $fs
      */
     public function __construct(Filesystem $fs = null)
@@ -41,6 +42,10 @@ class InitService
     }
 
     /**
+     * Create local configuration file if not exist.
+     * simply utilize existing method.
+     *
+     * @codeCoverageIgnore
      * Generate empty file.
      */
     public function createLocalConfiguration()
@@ -49,6 +54,9 @@ class InitService
     }
 
     /**
+     * Passing parameters to Filesystem Provider.
+     *
+     * @codeCoverageIgnore
      * @param $globalHostsUrl
      */
     public function addGlobalHostUrl($globalHostsUrl, $override = false)
