@@ -8,6 +8,15 @@ class Application extends \Symfony\Component\Console\Application
      */
     private $environment;
 
+    private static $_logo = <<<LOGO
+               ,:',:`,:'
+            __||_||_||_||__
+       ____["""""""""""""""]____
+       \ " '''''''''''''''''''' |
+~^~^~^^~^~^~^~^~^~^~^~~^~^~^^~~^~^~^~^
+
+LOGO;
+
     /**
      * @param string $name    The name of the application
      * @param string $version The version of the application
@@ -21,5 +30,13 @@ class Application extends \Symfony\Component\Console\Application
     public function getEnvironment()
     {
         return $this->environment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHelp()
+    {
+        return static::$_logo . parent::getHelp();
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Neusta\Hosts\Command;
 
-use Neusta\Hosts\Services\HostService;
 use Neusta\Hosts\Services\Provider\Cli;
 use Neusta\Hosts\Services\Validator\Scope;
 use Symfony\Component\Console\Exception\LogicException;
@@ -10,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 
 class ConnectCommand extends AbstractCommand
@@ -79,6 +79,8 @@ class ConnectCommand extends AbstractCommand
         $output->writeln("establishing connection...");
         $string = $hostService->getConnectionStringByName($host);
         if ($this->getApplication()->getEnvironment() == 'prod') {
+            $style = new SymfonyStyle($input, $output);
+            $style->caution('Leaving local bash!');
             Cli::passthruSsh($string);
         }
         return 0;
