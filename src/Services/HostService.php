@@ -101,7 +101,7 @@ class HostService
 
         $hostKey = array_search($host, array_column($config, 'name'));
 
-        $sshCommand = $config[$hostKey]['user'] . '@' . $config[$hostKey]['host'];
+        $sshCommand = $config[$hostKey]['user'] . '@' . $config[$hostKey]['host'] . ' -p ' . $config[$hostKey]['port'];
 
         return $sshCommand;
     }

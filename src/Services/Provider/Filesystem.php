@@ -137,9 +137,13 @@ class Filesystem
     public function getConfigurationFile($fileName, $createIfNotExist = true)
     {
         if (!$this->fs->exists($fileName) && $createIfNotExist) {
-            // generate a empty array for local configuration
-            $defaults = ['hosts' => []];
-            $this->fs->dumpFile($fileName, json_encode($defaults));
+            try {
+                // generate a empty array for local configuration
+                $defaults = ['hosts' => []];
+                $this->fs->dumpFile($fileName, json_encode($defaults));
+            }catch (\Exception $e){
+                // implement propper error handling
+            }
         }
         $config = json_decode($this->file->getContents($fileName), true);
         if (is_null($config)) {
