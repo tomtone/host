@@ -21,7 +21,7 @@ class UpdateCommand extends Command
     /**
      * manifest.json Path to get Updated versions.
      */
-    const MANIFEST_FILE = 'http://127.0.0.1:8080/Hosts/manifest.json';
+    const MANIFEST_FILE = 'https://phabricator.intern.neusta.de/diffusion/HOSTSPHAR/browse/master/hosts/manifest.json?view=raw';
 
     /**
      *

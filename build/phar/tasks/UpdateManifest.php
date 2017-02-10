@@ -5,7 +5,7 @@
  */
 class UpdateManifest extends Task
 {
-    private $_baseUrl = 'http://127.0.0.1:8080/magehost/downloads/';
+    private $_baseUrl = 'https://phabricator.intern.neusta.de/diffusion/HOSTSPHAR/browse/master/hosts/downloads/';
 
     /**
      * Basic information to be provided/filled for release;

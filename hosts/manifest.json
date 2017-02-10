@@ -1,8 +1,1 @@
-[
-  {
-    "name": "hosts.phar",
-    "sha1": "96cd1170d84543e7590576969eba8dbe96a18694",
-    "url": "http:\/\/127.0.0.1:8080\/magehost\/downloads\/hosts-v1.0.0-stable.phar",
-    "version": "v1.0.0-stable"
-  }
-]
+[{"name":"hosts.phar","sha1":"bcb6a9aeec128daffd0ace8d0673d6526e3e67ba","url":"https:\/\/phabricator.intern.neusta.de\/diffusion\/HOSTSPHAR\/browse\/master\/hosts\/downloads\/hosts-v1.0.0-stable.phar","version":"v1.0.0-stable"}]
