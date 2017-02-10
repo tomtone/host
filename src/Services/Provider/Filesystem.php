@@ -54,6 +54,7 @@ class Filesystem
         File $file = null
     )
     {
+        print_r($this);die();
         if(is_null($fs)){
             $fs = new \Symfony\Component\Filesystem\Filesystem();
         }
@@ -109,7 +110,7 @@ class Filesystem
     public function getProjectConfiguration()
     {
         $filename = $this->getFilename();
-        $config = $this->getConfigurationFile($filename);
+        $config = $this->getConfigurationFile($filename, false);
         $config = $this->addScope($config, 'project');
         return $config;
     }
