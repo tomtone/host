@@ -8,7 +8,7 @@ use Exception;
  * @codeCoverageIgnore
  * @package Neusta\Hosts\Exception
  */
-class HostAlreadySet extends \Exception
+class HostAlreadySetException extends \Exception
 {
     private $_value;
 

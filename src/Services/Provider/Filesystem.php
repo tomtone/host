@@ -1,22 +1,15 @@
 <?php
 namespace Neusta\Hosts\Services\Provider;
 
-use Neusta\Hosts\Exception\HostAlreadySet;
+use Neusta\Hosts\Exception\HostAlreadySetException;
 
 /**
  * Class Filesystem
- *
- * @ToDo move config to .hosts folder, add config file and hosts file
  *
  * @package Neusta\Hosts\Services\Provider
  */
 class Filesystem
 {
-    /**
-     * global configuration for all devs.
-     */
-    const GLOBAL_CONFIGURATION_FILE_PATH = 'http://127.0.0.1:8080/hosts/hosts.json';
-
     /**
      * configuration file name.
      */
@@ -54,7 +47,6 @@ class Filesystem
         File $file = null
     )
     {
-        print_r($this);die();
         if(is_null($fs)){
             $fs = new \Symfony\Component\Filesystem\Filesystem();
         }
@@ -182,7 +174,7 @@ class Filesystem
      * @param $hostUrl
      * @param bool $override
      *
-     * @throws HostAlreadySet
+     * @throws HostAlreadySetException
      */
     public function setGlobalHostsUrl($hostUrl, $override = false)
     {
@@ -192,7 +184,7 @@ class Filesystem
         if(array_key_exists('hosts_url', $config) && $override){
             $config['hosts_url'] = $hostUrl;
         }elseif(array_key_exists('hosts_url', $config)){
-            throw new HostAlreadySet($config['hosts_url']);
+            throw new HostAlreadySetException($config['hosts_url']);
         }else{
             $config['hosts_url'] = $hostUrl;
         }
