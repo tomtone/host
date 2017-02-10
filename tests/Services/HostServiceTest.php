@@ -137,7 +137,8 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
                     [
                         'name' => 'HostName',
                         'user' => 'jon.doe',
-                        'host' => 'some.weired.host'
+                        'host' => 'some.weired.host',
+                        'port' => 22
                     ],
                 ]
             ]);
@@ -145,6 +146,6 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
         $hostService = new HostService($this->fileSystemMock);
         $hostService->setScope('local');
         $result = $hostService->getConnectionStringByName('HostName');
-        $this->assertSame('jon.doe@some.weired.host', $result);
+        $this->assertSame('jon.doe@some.weired.host -p 22', $result);
     }
 }

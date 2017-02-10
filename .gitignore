@@ -1,7 +1,7 @@
 /.idea
 /.hosts
 /vendor
-/hosts
+/hosts/hosts.json
 /docs
 !/docs/.gitkeep
 /build/vendor

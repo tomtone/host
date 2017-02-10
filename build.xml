@@ -59,7 +59,19 @@ Build phar with:
         </patched-pharpackage>
         <!-- make phar executable -->
         <chmod file="./${phar}" mode="775" />
-        <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="http://127.0.0.1:8080/hosts/downloads/"/>
+    </target>
+    <target name="provide">
+        <exec command="composer install --no-dev --ignore-platform-reqs --optimize-autoloader" dir="${project.basedir}" passthru="true"
+              checkreturn="true"/>
+        <phingcall target="dist_unix">
+            <property name="compression" value="gzip" />
+        </phingcall>
+        <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="./hosts/downloads"/>
+        <!-- Revert dev settings -->
+        <exec command="composer install" dir="${project.basedir}" passthru="true" checkreturn="true"/>
+    </target>
+    <target name="test">
+        <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="./hosts/downloads"/>
     </target>
     <target name="install">
         <copy file="${project.basedir}/${phar}" tofile="${user.home}/bin/${phing.project.name}" overwrite="true"/>

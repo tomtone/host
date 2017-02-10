@@ -5,7 +5,6 @@
   },
   "minimum-stability": "stable",
   "require": {
-    "seld/phar-utils": "1.0.1",
-    "symfony/filesystem": "^3.2"
+    "seld/phar-utils": "1.0.1"
   }
 }

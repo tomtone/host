@@ -155,12 +155,9 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $this->fileSystem->expects($this->once())
             ->method('exists')
             ->willReturn(false);
-        $this->fileSystem->expects($this->once())
+        $this->fileSystem->expects($this->never())
             ->method('dumpFile')
-            ->with(
-                './.hosts',
-                json_encode(['hosts' => []])
-            );
+            ;
         $this->file->expects($this->once())
             ->method('getContents')
             ->with('./.hosts')
@@ -331,7 +328,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->with('/some/home/path/.hosts')
             ->willReturn(json_encode(['hosts_url' => 'someHost', 'hosts' => []]));
 
-        $this->expectException("\\Neusta\\Hosts\\Exception\\HostAlreadySet");
+        $this->expectException("\\Neusta\\Hosts\\Exception\\HostAlreadySetException");
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
