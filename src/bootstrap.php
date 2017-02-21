@@ -3,7 +3,7 @@
 require dirname(__DIR__) . "/vendor/autoload.php";
 use Neusta\Hosts\Console\Application;
 
-$app = new Application('Hosts', '1.0.0-stable');
+$app = new Application('Hosts', 'v1.0.0-a');
 $app->add(new \Neusta\Hosts\Command\ConnectCommand());
 $app->add(new \Neusta\Hosts\Command\ListCommand());
 $app->add(new \Neusta\Hosts\Command\AddCommand());
