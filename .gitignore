@@ -1,8 +1,6 @@
 /.idea
 /.hosts
 /vendor
-/hosts/hosts.json
-/docs
-!/docs/.gitkeep
+/reports
 /build/vendor
 /hosts.phar
