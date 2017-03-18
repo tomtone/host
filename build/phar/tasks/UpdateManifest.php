@@ -105,7 +105,8 @@ class UpdateManifest extends Task
      */
     private function getVersion()
     {
-        exec("git tag -l", $latestTag);
+        exec("git fetch");
+        exec("git tag", $latestTag);
         return array_pop($latestTag);
     }
 
