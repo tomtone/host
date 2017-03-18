@@ -1,4 +1,4 @@
-![team neusta][logo]
+
 # The Hosts-Project #
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomtone/test/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/tomtone/test/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/build-status/master)
