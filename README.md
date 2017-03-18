@@ -22,8 +22,6 @@ There are 3 Options to install:
 
 ### As a Phar (Recommended)
 
-You may download a ready-to-use version of Box as a Phar:
-
 ```sh
 $ curl -LSs https://box-project.github.io/box2/installer.php | php
 ```
@@ -40,3 +38,23 @@ Whenever a new version of the application is released, you can simply run the `s
 ```sh
 $ hosts self-update
 ```
+
+Basic Usage
+---------------------
+
+Adding a new Host:
+
+```sh
+$ hosts host:add
+  Please enter name: someHost
+  Please enter host: www.some-host.de
+  Please enter username: web-user
+  Please enter Port:[22] 2001
+  Please select a host:
+    [0] local
+    [1] project
+   > 0
+  Added Entry: web-user@www.some-host.de for local scope.
+```
+
+As you can see, there are only 2 scope for locally adding a new host. The Third Scope will be introduced later on.
