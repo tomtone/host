@@ -34,7 +34,7 @@ class ListCommand extends AbstractCommand
                 'Use local or global scope',
                 null
             )
-            ->setDescription('list available hosts');;
+            ->setDescription('list available hosts');
     }
 
     /**

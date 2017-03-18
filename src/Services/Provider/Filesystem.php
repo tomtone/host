@@ -243,7 +243,9 @@ class Filesystem
                 $config['hosts'][$key]['scope'] = $scope;
             }
         }
-        if (!is_array($config)) $config = ['hosts' => []];
+        if (!is_array($config)) {
+            $config = ['hosts' => []];
+        }
         return $config;
     }
 

@@ -26,7 +26,7 @@ class AddCommand extends AbstractCommand
     {
         $this
             ->setName('host:add')
-            ->setDescription('interactively add new hosts');;
+            ->setDescription('interactively add new hosts');
     }
 
     /**

@@ -35,7 +35,7 @@ class ConnectCommand extends AbstractCommand
                 'Use local or global scope',
                 null
             )
-            ->setDescription('Get a list of availiable hosts');;
+            ->setDescription('Get a list of availiable hosts');
     }
 
     /**
