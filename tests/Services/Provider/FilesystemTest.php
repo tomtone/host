@@ -1,4 +1,16 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
+
 namespace Neusta\Hosts\Test\Services\Provider;
 
 use Neusta\Hosts\Services\Provider\Filesystem;
@@ -130,12 +142,12 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $this->fileSystem->expects($this->once())
             ->method('dumpFile')
             ->with(
-                '/some/home/path/.hosts',
+                '/some/home/path'.DIRECTORY_SEPARATOR.'.hosts',
                 json_encode(['hosts' => []])
             );
         $this->file->expects($this->once())
             ->method('getContents')
-            ->with('/some/home/path/.hosts')
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(['hosts' => [['name' => 'HostName']]]));
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
@@ -156,18 +168,17 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->method('exists')
             ->willReturn(false);
         $this->fileSystem->expects($this->never())
-            ->method('dumpFile')
-            ;
+            ->method('dumpFile');
         $this->file->expects($this->once())
             ->method('getContents')
-            ->with('./.hosts')
+            ->with('.'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(['hosts' => [['name' => 'HostName']]]));
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
         $result = $filesystem->getProjectConfiguration();
 
-        $this->assertSame(['hosts' =>[['name' => 'HostName', 'scope' => 'project']]], $result);
+        $this->assertSame(['hosts' => [['name' => 'HostName', 'scope' => 'project']]], $result);
     }
 
     /**
@@ -202,7 +213,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         return [
             'local/default Scope' => [
                 'local',
-                '/some/home/path/.hosts',
+                '/some/home/path'.DIRECTORY_SEPARATOR.'.hosts',
                 ['hosts' => [[
                     'name' => 'HostName',
                     'host' => '',
@@ -212,7 +223,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ],
             'project Scope' => [
                 'project',
-                './.hosts',
+                '.'.DIRECTORY_SEPARATOR.'.hosts',
                 ['hosts' => [[
                     'name' => 'HostName',
                     'host' => '',
@@ -265,7 +276,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')
             ->with(
-                '/some/home/path/.hosts',
+                '/some/home/path'.DIRECTORY_SEPARATOR.'.hosts',
                 json_encode(['hosts' => [[
                     'name' => 'HostName',
                     'host' => '',
@@ -276,7 +287,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->willThrowException(new \Exception('SomeError'));
         $this->file->expects($this->any())
             ->method('getContents')
-            ->with('/some/home/path/.hosts')
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(['hosts' => []]));
 
         $this->expectException("Exception");
@@ -300,12 +311,12 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $this->file->expects($this->any())
             ->method('getContents')
-            ->with('/some/home/path/.hosts')
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(['hosts' => []]));
 
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')
-            ->with('/some/home/path/.hosts', '{"hosts":[],"hosts_url":"someHost"}');
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts', '{"hosts":[],"hosts_url":"someHost"}');
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
@@ -325,7 +336,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $this->file->expects($this->any())
             ->method('getContents')
-            ->with('/some/home/path/.hosts')
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(['hosts_url' => 'someHost', 'hosts' => []]));
 
         $this->expectException("\\Neusta\\Hosts\\Exception\\HostAlreadySetException");
@@ -348,12 +359,12 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
 
         $this->file->expects($this->any())
             ->method('getContents')
-            ->with('/some/home/path/.hosts')
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(["hosts_url" => "someHost", 'hosts' => []]));
 
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')
-            ->with('/some/home/path/.hosts', '{"hosts_url":"someHost","hosts":[]}');
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts', '{"hosts_url":"someHost","hosts":[]}');
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
@@ -370,20 +381,20 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->method('getContents')
             ->withConsecutive(
                 [
-                    '/some/home/path/.hosts',
+                    '/some/home/path'.DIRECTORY_SEPARATOR.'.hosts',
                 ]
             )
             ->willReturn(json_encode(["hosts_url" => "someHost", 'hosts' => [['host' => 'someHost']]]));
 
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')
-            ->with('/some/home/path/.hosts', '{"hosts_url":"someHost","hosts":[]}');
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts', '{"hosts_url":"someHost","hosts":[]}');
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
         $result = $filesystem->getGlobalConfiguration();
 
-        $this->assertSame(["hosts_url" => "someHost", 'hosts' =>[['host' => 'someHost', 'scope' => 'global']]], $result);
+        $this->assertSame(["hosts_url" => "someHost", 'hosts' => [['host' => 'someHost', 'scope' => 'global']]], $result);
     }
 
     public function testGetGlobalConfigurationWillReturnEmptyConfigArrayIfHostUrlNotFoundInConfugration()
@@ -396,14 +407,14 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->method('getContents')
             ->withConsecutive(
                 [
-                    '/some/home/path/.hosts',
+                    '/some/home/path'.DIRECTORY_SEPARATOR.'.hosts',
                 ]
             )
             ->willReturn(json_encode(['hosts' => [['host' => 'someHost']]]));
 
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')
-            ->with('/some/home/path/.hosts', '{"hosts_url":"someHost","hosts":[]}');
+            ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts', '{"hosts_url":"someHost","hosts":[]}');
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 

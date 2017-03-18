@@ -1,4 +1,16 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
+
 namespace Neusta\Hosts\Services;
 
 use Neusta\Hosts\Services\Provider\Filesystem;
@@ -75,9 +87,9 @@ class HostService
     {
         $args = func_get_args();
         $config = ['hosts' => []];
-        foreach ($args as $hosts){
-            if(array_key_exists('hosts', $hosts)){
-                foreach ($hosts['hosts'] as $entry){
+        foreach ($args as $hosts) {
+            if (array_key_exists('hosts', $hosts)) {
+                foreach ($hosts['hosts'] as $entry) {
                     $config['hosts'][] = $entry;
                 }
             }

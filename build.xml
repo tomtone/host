@@ -1,9 +1,21 @@
 <?xml version="1.0"?>
 <!--
+  ~ /**
+  ~  * This file is part of the teamneusta/codeception-docker-chrome package.
+  ~  *
+  ~  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+  ~  *
+  ~  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+  ~  *
+  ~  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+  ~  */
+  -->
+
+<!--
 Phing build file to create a executable phar file by defined src.
 @see http://www.phing.info/
-Build phar with:
-    phing dist
+Build phar with (default Task is dist for building):
+    phing
 -->
 <project name="hosts" default="dist" basedir=".">
     <taskdef name="update-manifest" classname="build.phar.tasks.UpdateManifest" />

@@ -1,4 +1,16 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
+
 namespace Neusta\Hosts\Services\Provider;
 
 use Neusta\Hosts\Exception\HostAlreadySetException;
@@ -47,10 +59,10 @@ class Filesystem
         File $file = null
     )
     {
-        if(is_null($fs)){
+        if (is_null($fs)) {
             $fs = new \Symfony\Component\Filesystem\Filesystem();
         }
-        if(is_null($file)){
+        if (is_null($file)) {
             $file = new File();
         }
         $this->fs = $fs;
@@ -70,8 +82,7 @@ class Filesystem
         if (!empty($home)) {
             // home should never end with a trailing slash.
             $home = rtrim($home, '/');
-        }
-        elseif (!empty($_SERVER['HOMEDRIVE']) && !empty($_SERVER['HOMEPATH'])) {
+        } elseif (!empty($_SERVER['HOMEDRIVE']) && !empty($_SERVER['HOMEPATH'])) {
             // home on windows
             $home = $_SERVER['HOMEDRIVE'] . $_SERVER['HOMEPATH'];
             // If HOMEPATH is a root directory the path can end with a slash. Make sure
@@ -116,7 +127,7 @@ class Filesystem
     {
         $fileName = $this->getGlobalUrlFromConfig();
         $config = [];
-        if($fileName !== false) {
+        if ($fileName !== false) {
             $config = $this->getConfigurationFile($fileName, false);
             $config = $this->addScope($config, 'global');
         }
@@ -134,7 +145,7 @@ class Filesystem
                 // generate a empty array for local configuration
                 $defaults = ['hosts' => []];
                 $this->fs->dumpFile($fileName, json_encode($defaults));
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 // implement propper error handling
             }
         }
@@ -146,6 +157,13 @@ class Filesystem
         return $config;
     }
 
+    /**
+     * Adds Host to configuration file.
+     *
+     * @param $hostConfig
+     * @param string $scope
+     * @throws \Exception
+     */
     public function addHostToConfiguration($hostConfig, $scope = 'local')
     {
         try {
@@ -163,9 +181,9 @@ class Filesystem
             $config['hosts'][] = array_merge($this->_defaultConfig, $hostConfig);
             $this->fs->dumpFile($fileName, json_encode($config));
             $this->_isUpdate = false;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
-        }finally{
+        } finally {
             $this->_isUpdate = false;
         }
     }
@@ -181,11 +199,11 @@ class Filesystem
         $fileName = $this->getFilename(self::getHomeDir());
         $config = $this->getConfigurationFile($fileName);
 
-        if(array_key_exists('hosts_url', $config) && $override){
+        if (array_key_exists('hosts_url', $config) && $override) {
             $config['hosts_url'] = $hostUrl;
-        }elseif(array_key_exists('hosts_url', $config)){
+        } elseif (array_key_exists('hosts_url', $config)) {
             throw new HostAlreadySetException($config['hosts_url']);
-        }else{
+        } else {
             $config['hosts_url'] = $hostUrl;
         }
         $this->fs->dumpFile($fileName, json_encode($config));
@@ -214,12 +232,12 @@ class Filesystem
     private function addScope($config, $scope)
     {
         // do not add Scope during update. Scope will always be set when reading configuration.
-        if(!$this->_isUpdate && is_array($config)) {
+        if (!$this->_isUpdate && is_array($config)) {
             foreach ($config['hosts'] as $key => $entry) {
                 $config['hosts'][$key]['scope'] = $scope;
             }
         }
-        if(!is_array($config)) $config = ['hosts' => []];
+        if (!is_array($config)) $config = ['hosts' => []];
         return $config;
     }
 
@@ -234,7 +252,7 @@ class Filesystem
         $config = $this->getConfigurationFile($fileName, false);
 
         $hostUrl = false;
-        if(array_key_exists('hosts_url',$config)) {
+        if (array_key_exists('hosts_url', $config)) {
             $hostUrl = $config['hosts_url'];
         }
 

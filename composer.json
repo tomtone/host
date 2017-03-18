@@ -1,7 +1,18 @@
 {
-    "name": "neusta/hosts",
-    "version": "1.5.0",
+    "name": "teamneusta/hosts",
+    "description": "",
+    "license": "MIT",
+    "type": "project",
+    "minimum-stability": "stable",
+    "keywords": ["development","ssh","tools"],
+    "authors": [
+        {
+            "name": "Thomas von Gostomski",
+            "email": "t.gostomski@neusta.de"
+        }
+    ],
     "require": {
+        "php": ">=7.0.0",
         "symfony/console": "^3.2",
         "symfony/filesystem": "^3.2",
         "herrera-io/phar-update": "1.*"

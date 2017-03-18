@@ -1,6 +1,17 @@
 <?php
-namespace Neusta\Hosts\Tests\Services;
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
 
+namespace Neusta\Hosts\Tests\Services;
 
 use Neusta\Hosts\Services\HostService;
 

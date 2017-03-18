@@ -1,4 +1,15 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
 
 namespace Neusta\Hosts\Tests\Command;
 
@@ -10,7 +21,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class AddCommandTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var HostService | \PHPUnit_Framework_MockObject_MockObject
      */
@@ -21,15 +31,13 @@ class AddCommandTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
-            ->setMethods(['getHostsForQuestionhelper','getConnectionStringByName'])
-            ->getMock()
-        ;
+            ->setMethods(['getHostsForQuestionhelper', 'getConnectionStringByName'])
+            ->getMock();
 
         $this->hostServiceMock->method('getHostsForQuestionhelper')
             ->willReturn([
                 'SomeHost'
-            ])
-        ;
+            ]);
     }
 
     public function getEnvironmentDataProvider()
@@ -48,18 +56,18 @@ class AddCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddWillAddHostAndReturnAddedHost($parameter, $expectation)
     {
-        $baseApplication =  new Application(null,null,'dev');
+        $baseApplication = new Application(null, null, 'dev');
         $baseApplication->add(new AddCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('host:add');
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs(['Test Host','some.weired.host','username',22, $parameter]);
+        $commandTester->setInputs(['Test Host', 'some.weired.host', 'username', 22, $parameter]);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
         ));
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('Added Entry: username@some.weired.host for '.$expectation.' scope.', $output);
+        $this->assertContains('Added Entry: username@some.weired.host for ' . $expectation . ' scope.', $output);
     }
 }

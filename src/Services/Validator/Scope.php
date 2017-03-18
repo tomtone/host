@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: tgostomski
- * Date: 28.01.17
- * Time: 15:58
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
  */
 
 namespace Neusta\Hosts\Services\Validator;
-
 
 class Scope
 {
@@ -17,7 +21,7 @@ class Scope
 
     public static function validateScope($scope)
     {
-        if($scope != self::SCOPE_GLOBAL && $scope != self::SCOPE_LOCAL && $scope != self::SCOPE_PROJECT && $scope != null){
+        if ($scope != self::SCOPE_GLOBAL && $scope != self::SCOPE_LOCAL && $scope != self::SCOPE_PROJECT && $scope != null) {
             throw new \InvalidArgumentException(printf('Scope "%s" not defined.', $scope));
         }
     }

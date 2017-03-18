@@ -1,4 +1,16 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
+
 namespace Neusta\Hosts\Command;
 
 use Neusta\Hosts\Exception\HostAlreadySet;
@@ -11,6 +23,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 
+/**
+ * Class InitCommand
+ * not implemented yet.
+ * 
+ * @codeCoverageIgnore
+ *
+ * @package Neusta\Hosts\Command
+ */
 class InitCommand extends Command
 {
     /**
@@ -68,7 +88,6 @@ class InitCommand extends Command
     {
         $output->writeln("Still work in Progress!");
         return 0;
-
         $output->writeln("Checking for local configuration file..");
         if(!$this->_initService->localConfigurationExist()){
             $output->writeln("Creating empty local configuration file.");

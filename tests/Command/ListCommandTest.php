@@ -1,4 +1,15 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
 
 namespace Neusta\Hosts\Tests\Command;
 
@@ -21,8 +32,7 @@ class ListCommandTest extends \PHPUnit_Framework_TestCase
         $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
             ->setMethods(['getHosts'])
-            ->getMock()
-            ;
+            ->getMock();
     }
 
     /**
@@ -40,16 +50,15 @@ class ListCommandTest extends \PHPUnit_Framework_TestCase
                     'user' => 'jon.doe',
                     'scope' => 'local',
                 ]
-            ])
-        ;
-        $baseApplication =  new Application(null,null,'dev');
+            ]);
+        $baseApplication = new Application(null, null, 'dev');
         $baseApplication->add(new ListCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('host:list');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([0]);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
         ));
 
         // the output of the command in the console
@@ -68,17 +77,16 @@ class ListCommandTest extends \PHPUnit_Framework_TestCase
     public function testListHostWillReturnNoticeOfNoHostsFound()
     {
         $this->hostServiceMock->method('getHosts')
-            ->willReturn([])
-        ;
+            ->willReturn([]);
 
-        $baseApplication =  new Application(null,null,'dev');
+        $baseApplication = new Application(null, null, 'dev');
         $baseApplication->add(new ListCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('host:list');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([0]);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
         ));
 
         // the output of the command in the console

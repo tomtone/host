@@ -1,4 +1,15 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
 
 namespace Neusta\Hosts\Tests\Command;
 
@@ -20,15 +31,13 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
-            ->setMethods(['getHostsForQuestionhelper','getConnectionStringByName','getHosts'])
-            ->getMock()
-            ;
+            ->setMethods(['getHostsForQuestionhelper', 'getConnectionStringByName', 'getHosts'])
+            ->getMock();
 
         $this->hostServiceMock->method('getHostsForQuestionhelper')
             ->willReturn([
                 'SomeHost'
-            ])
-        ;
+            ]);
     }
 
     /**
@@ -38,19 +47,20 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testConnectToHostWillCreateCliConnection()
     {
-        $baseApplication =  new Application(null,null,'dev');
+        $baseApplication = new Application(null, null, 'dev');
         $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([0]);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
         ));
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("You have selected: SomeHost\nestablishing connection...", $output);
+        $this->assertContains("You have selected: SomeHost", $output);
+        $this->assertContains("establishing connection...", $output);
     }
 
     /**
@@ -60,19 +70,20 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testConnectToHostWillExitOnChoosingExitOption()
     {
-        $baseApplication =  new Application(null,null,'dev');
+        $baseApplication = new Application(null, null, 'dev');
         $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs(['exit']);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
         ));
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("exiting.\nhave a nice day :-)", $output);
+        $this->assertContains("exiting.", $output);
+        $this->assertContains("have a nice day :-)", $output);
     }
 
     /**
@@ -84,14 +95,14 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('This test is not supported on OSX.');
 
-        $baseApplication =  new Application(null,null,'dev');
+        $baseApplication = new Application(null, null, 'dev');
         $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([2]);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
         ));
 
         // the output of the command in the console

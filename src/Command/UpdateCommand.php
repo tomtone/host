@@ -1,4 +1,16 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
+
 namespace Neusta\Hosts\Command;
 
 use Herrera\Phar\Update\Manager;
@@ -24,7 +36,7 @@ class UpdateCommand extends Command
     const MANIFEST_FILE = 'https://raw.githubusercontent.com/tomtone/test/master/hosts/manifest.json';
 
     /**
-     *
+     * Announce name and description so command could be called.
      */
     protected function configure()
     {

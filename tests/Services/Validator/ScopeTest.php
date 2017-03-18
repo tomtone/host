@@ -1,4 +1,16 @@
 <?php
+/**
+ * *
+ *  * This file is part of the teamneusta/codeception-docker-chrome package.
+ *  *
+ *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ *  *
+ *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ *  *
+ *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *  
+ */
+
 namespace Neusta\Hosts\Test\Services\Validator;
 
 
@@ -32,6 +44,7 @@ class ScopeTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
     /**
      * @test
      * @dataProvider getScopesDataProvider
@@ -40,7 +53,7 @@ class ScopeTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateScopeWillThrowExceptionOnInvalidScopeValue($scope, $throwsException)
     {
-        if($throwsException) {
+        if ($throwsException) {
             $this->expectException("InvalidArgumentException");
         }
         Scope::validateScope($scope);
