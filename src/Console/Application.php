@@ -20,7 +20,7 @@ class Application extends \Symfony\Component\Console\Application
      */
     private $environment;
 
-    private static $_logo = <<<LOGO
+    protected static $_logo = <<<LOGO
     
                ,:',:`,:'
             __||_||_||_||__

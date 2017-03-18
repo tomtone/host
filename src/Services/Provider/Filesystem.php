@@ -28,6 +28,16 @@ class Filesystem
     const CONFIGURATION_FILE_NAME = '.hosts';
 
     /**
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    protected $fs;
+
+    /**
+     * @var File
+     */
+    protected $file;
+
+    /**
      * Determines if currently adding new Data to avoid setting scope.
      * Scope will only be added if not updating.
      *
@@ -76,7 +86,7 @@ class Filesystem
      */
     public function getHomeDir()
     {
-        // Cannot use $_SERVER superglobal since that's empty during UnitUnishTestCase
+        // Cannot use _SERVER superglobal since that's empty during UnitUnishTestCase
         // getenv('HOME') isn't set on Windows and generates a Notice.
         $home = getenv('HOME');
         if (!empty($home)) {

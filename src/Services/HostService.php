@@ -18,7 +18,7 @@ use Neusta\Hosts\Services\Provider\Filesystem;
 class HostService
 {
     /**
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var Filesystem
      */
     private $fs;
 
@@ -51,7 +51,7 @@ class HostService
      * @param int $port
      * @param string $scope
      */
-    public function update($name, $host, $user, $port = 22, $scope = 'local')
+    public function update($name, $host, $user, $port = 22)
     {
         $config = [
             'name' => $name,
