@@ -1,14 +1,10 @@
 <?php
 /**
- * *
- *  * This file is part of the teamneusta/codeception-docker-chrome package.
- *  *
- *  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
- *  *
- *  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
- *  *
- *  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
- *  
+ * This file is part of the teamneusta/codeception-docker-chrome package.
+ * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+ * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ *
  */
 
 namespace Neusta\Hosts\Command;
@@ -88,40 +84,6 @@ class InitCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln("Still work in Progress!");
-        return 0;
-        $output->writeln("Checking for local configuration file..");
-        if (!$this->_initService->localConfigurationExist()) {
-            $output->writeln("Creating empty local configuration file.");
-            $this->_initService->createLocalConfiguration();
-        }
-        $helper = new QuestionHelper();
-
-        $question = new Question('Please enter Path for globally used hosts: ');
-        $globalHostsUrl = $helper->ask($input, $output, $question);
-
-        /** @var \Neusta\Hosts\Console\Application $application */
-        $application = $this->getApplication();
-        if (
-            $application instanceof \Neusta\Hosts\Console\Application &&
-            $application->getEnvironment() == 'prod'
-        ) {
-            try {
-                $this->_initService->addGlobalHostUrl($globalHostsUrl);
-            } catch (HostAlreadySetException $e) {
-                $question = new ConfirmationQuestion(
-                    sprintf("Value already set to \"%s\".\nYou want to override the value? (default is n) ", $e->getValue()),
-                    false,
-                    '/^(y|j)/i'
-                );
-                if ($helper->ask($input, $output, $question)) {
-                    $output->writeln("Overwriting value to \"$globalHostsUrl\"");
-                    $this->_initService->addGlobalHostUrl($globalHostsUrl, true);
-                } else {
-                    $output->writeln("Nothing to do.");
-                }
-            }
-        }
-        $output->writeln('Init done...');
         return 0;
     }
 }
