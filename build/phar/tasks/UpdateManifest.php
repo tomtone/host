@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the teamneusta/codeception-docker-chrome package.
+ * This file is part of the teamneusta/hosts project.
  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -12,7 +12,7 @@
  */
 class UpdateManifest extends Task
 {
-    private $_baseUrl = 'https://raw.githubusercontent.com/tomtone/test/master/hosts/downloads/';
+    private $_baseUrl = 'https://tomtone.github.io/host/releases/';
 
     /**
      * Basic information to be provided/filled for release;

@@ -29,7 +29,7 @@ class UpdateCommand extends Command
     /**
      * manifest.json Path to get Updated versions.
      */
-    const MANIFEST_FILE = 'https://raw.githubusercontent.com/tomtone/test/master/hosts/manifest.json';
+    const MANIFEST_FILE = 'https://tomtone.github.io/host/manifest.json';
 
     /**
      * Announce name and description so command could be called.

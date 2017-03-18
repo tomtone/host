@@ -44,7 +44,7 @@ Build phar with (default Task is dist for building):
         <exec command="composer install --no-dev --ignore-platform-reqs --optimize-autoloader" dir="${project.basedir}" passthru="true"
               checkreturn="true"/>
         <exec command="box build -vvv" dir="${project.basedir}" passthru="true"/>
-        <update-manifest baseDir="./" manifestPath="./docs/manifest.json" downloadPath="./docs/downloads"/>
+        <update-manifest baseDir="./" manifestPath="./manifest.json" downloadPath="./releases"/>
         <exec command="composer install --optimize-autoloader" dir="${project.basedir}" passthru="true" checkreturn="true"/>
     </target>
 </project>
