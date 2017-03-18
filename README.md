@@ -31,6 +31,7 @@ The command will check your PHP settings, warn you of any issues, and the downlo
 
 ```bash
 $ hosts --version
+  Hosts 2.0.0
 ```
 
 Whenever a new version of the application is released, you can simply run the `self-update` command to get the latest version:
