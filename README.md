@@ -46,15 +46,15 @@ Adding a new host:
 
 ```sh
 $ hosts host:add
-  Please enter name: someHost
-  Please enter host: www.some-host.de
-  Please enter username: web-user
-  Please enter Port:[22] 2001
-  Please select a host:
-    [0] local
-    [1] project
-   > 0
-  Added Entry: web-user@www.some-host.de for local scope.
+$ Please enter name: someHost
+$ Please enter host: www.some-host.de
+$ Please enter username: web-user
+$ Please enter Port:[22] 2001
+$ Please select a host:
+$   [0] local
+$   [1] project
+$  > 0
+$ Added Entry: web-user@www.some-host.de for local scope.
 ```
 
 As you can see, there are only 2 scope for locally adding a new host. The Third Scope will be introduced later on.
@@ -63,26 +63,26 @@ Listing available hosts:
 
 ```sh
 $ hosts host:list
-  +------------------+---------------------------+----------+---------+
-  | Name             | Host                      | User     | Scope   |
-  +------------------+---------------------------+----------+---------+
-  | someHost         | www.some-host.de          | web-user | local   |
-  | someOtherHost    | www.some-other-host.de    | web-user | project |
-  | someExternalHost | www.some-external-host.de | web-user | global  |
-  +------------------+---------------------------+----------+---------+
+$ +------------------+---------------------------+----------+---------+
+$ | Name             | Host                      | User     | Scope   |
+$ +------------------+---------------------------+----------+---------+
+$ | someHost         | www.some-host.de          | web-user | local   |
+$ | someOtherHost    | www.some-other-host.de    | web-user | project |
+$ | someExternalHost | www.some-external-host.de | web-user | global  |
+$ +------------------+---------------------------+----------+---------+
 ```
 
 Connecting to a host:
 
 ```sh
 $ hosts connect
-  Please select a host:
-    [0] someHost
-    [1] someOtherHost
-    [2] exit
-   > 0
-  You have selected: someHost
-  establishing connection...
-  
-   ! [CAUTION] Leaving local bash!
+$ Please select a host:
+$   [0] someHost
+$   [1] someOtherHost
+$   [2] exit
+$  > 0
+$ You have selected: someHost
+$ establishing connection...
+$ 
+$  ! [CAUTION] Leaving local bash!
 ```
