@@ -15,6 +15,11 @@ class UpdateManifest extends Task
     private $_baseUrl = 'https://tomtone.github.io/host/releases/';
 
     /**
+     * @var VersionManager
+     */
+    protected $versionManager;
+
+    /**
      * Basic information to be provided/filled for release;
      *
      * @var array
@@ -39,6 +44,15 @@ class UpdateManifest extends Task
      * @var string
      */
     private $downloadPath;
+
+    public function __construct(VersionManager $versionManager = null)
+    {
+        if($versionManager == null){
+            $versionManager = new VersionManager();
+        }
+
+        $this->versionManager = $versionManager;
+    }
 
     /**
      * The setter for the attribute "basedir"
@@ -105,9 +119,7 @@ class UpdateManifest extends Task
      */
     private function getVersion()
     {
-        exec("git fetch");
-        exec("git tag", $latestTag);
-        return array_pop($latestTag);
+        return $this->versionManager->getVersion();
     }
 
     /**
@@ -127,13 +139,22 @@ class UpdateManifest extends Task
         $sha = $releaseData['sha1'];
         $version = $releaseData['version'];
 
-        foreach ($manifest as $key => $entry){
-            if((array_key_exists('sha1', $entry) && $entry['sha1'] == $sha) || (array_key_exists('version', $entry) && $entry['version'] == $version)){
+        foreach ($manifest as $key => $entry) {
+            if ((array_key_exists('sha1', $entry) && $entry['sha1'] == $sha) || (array_key_exists('version', $entry) && $entry['version'] == $version)) {
                 unset($manifest[$key]);
             }
         }
 
         $manifest[] = $releaseData;
         return array_values($manifest);
+    }
+}
+
+class VersionManager
+{
+    public function getVersion()
+    {
+        exec("git tag", $latestTag);
+        return array_pop($latestTag);
     }
 }

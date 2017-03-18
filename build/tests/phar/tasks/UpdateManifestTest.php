@@ -49,7 +49,14 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
         $testProject = new Project();
         $testProject->setName('hostsTest');
 
-        $this->updateManifest = new UpdateManifest();
+        $versionManagerMock = $this->getMockBuilder('VersionManager')
+            ->setMethods(['getVersion'])
+            ->getMock();
+
+        $versionManagerMock->method('getVersion')
+            ->willReturn('2.5.0');
+
+        $this->updateManifest = new UpdateManifest($versionManagerMock);
         $this->updateManifest->setProject($testProject);
         $this->updateManifest->setBaseDir(vfsStream::url('testDir'). '/');
         $this->updateManifest->setDownloadPath('test_release');
