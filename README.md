@@ -22,20 +22,20 @@ There are 3 Options to install:
 
 ### As a Phar (Recommended)
 
-```sh
+```bash
 $ curl -LSs https://box-project.github.io/box2/installer.php | php
 ```
 
 The command will check your PHP settings, warn you of any issues, and the download it to the current directory. From there, you may place it anywhere that will make it easier for you to access (such as `/usr/local/bin`) and chmod it to `755`.
 
 
-```sh
+```bash
 $ hosts --version
 ```
 
 Whenever a new version of the application is released, you can simply run the `self-update` command to get the latest version:
 
-```sh
+```bash
 $ hosts self-update
 ```
 
@@ -44,45 +44,45 @@ Basic Usage
 
 Adding a new host:
 
-```sh
+```bash
 $ hosts host:add
-$ Please enter name: someHost
-$ Please enter host: www.some-host.de
-$ Please enter username: web-user
-$ Please enter Port:[22] 2001
-$ Please select a host:
-$   [0] local
-$   [1] project
-$  > 0
-$ Added Entry: web-user@www.some-host.de for local scope.
+  Please enter name: someHost
+  Please enter host: www.some-host.de
+  Please enter username: web-user
+  Please enter Port:[22] 2001
+  Please select a host:
+    [0] local
+    [1] project
+   > 0
+  Added Entry: web-user@www.some-host.de for local scope.
 ```
 
 As you can see, there are only 2 scope for locally adding a new host. The Third Scope will be introduced later on.
 
 Listing available hosts:
 
-```sh
+```bash
 $ hosts host:list
-$ +------------------+---------------------------+----------+---------+
-$ | Name             | Host                      | User     | Scope   |
-$ +------------------+---------------------------+----------+---------+
-$ | someHost         | www.some-host.de          | web-user | local   |
-$ | someOtherHost    | www.some-other-host.de    | web-user | project |
-$ | someExternalHost | www.some-external-host.de | web-user | global  |
-$ +------------------+---------------------------+----------+---------+
+  +------------------+---------------------------+----------+---------+
+  | Name             | Host                      | User     | Scope   |
+  +------------------+---------------------------+----------+---------+
+  | someHost         | www.some-host.de          | web-user | local   |
+  | someOtherHost    | www.some-other-host.de    | web-user | project |
+  | someExternalHost | www.some-external-host.de | web-user | global  |
+  +------------------+---------------------------+----------+---------+
 ```
 
 Connecting to a host:
 
-```sh
+```bash
 $ hosts connect
-$ Please select a host:
-$   [0] someHost
-$   [1] someOtherHost
-$   [2] exit
-$  > 0
-$ You have selected: someHost
-$ establishing connection...
-$ 
-$  ! [CAUTION] Leaving local bash!
+  Please select a host:
+    [0] someHost
+    [1] someOtherHost
+    [2] exit
+   > 0
+  You have selected: someHost
+  establishing connection...
+  
+   ! [CAUTION] Leaving local bash!
 ```
