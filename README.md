@@ -42,7 +42,7 @@ $ hosts self-update
 Basic Usage
 ---------------------
 
-Adding a new Host:
+Adding a new host:
 
 ```sh
 $ hosts host:add
@@ -58,3 +58,31 @@ $ hosts host:add
 ```
 
 As you can see, there are only 2 scope for locally adding a new host. The Third Scope will be introduced later on.
+
+Listing available hosts:
+
+```sh
+$ hosts host:list
+  +------------------+---------------------------+----------+---------+
+  | Name             | Host                      | User     | Scope   |
+  +------------------+---------------------------+----------+---------+
+  | someHost         | www.some-host.de          | web-user | local   |
+  | someOtherHost    | www.some-other-host.de    | web-user | project |
+  | someExternalHost | www.some-external-host.de | web-user | global  |
+  +------------------+---------------------------+----------+---------+
+```
+
+Connecting to a host:
+
+```sh
+$ hosts connect
+  Please select a host:
+    [0] someHost
+    [1] someOtherHost
+    [2] exit
+   > 0
+  You have selected: someHost
+  establishing connection...
+  
+   ! [CAUTION] Leaving local bash!
+```
