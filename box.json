@@ -17,7 +17,7 @@
     }
   ],
   "git-version": "package_version",
-  "main": "src/bootstrap.php",
-  "output": "hosts.phar",
+  "main": "bin/hosts",
+  "output": "hosts-@git-version@.phar",
   "stub": true
 }
