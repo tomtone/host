@@ -11,14 +11,19 @@
          bootstrap="./vendor/autoload.php"
          strict="true"
          verbose="true">
-    <testsuite name="PHPUnit Skeleton Generator">
+    <testsuite name="Host-Project">
         <directory suffix="Test.php">./tests</directory>
         <exclude>./tests/_fixture</exclude>
         <exclude>./src/Command/InitCommand.php</exclude>
     </testsuite>
+    <testsuite name="Host-Build-Tools">
+        <directory suffix="Test.php">./build/tests</directory>
+        <exclude>./build/tests/_fixture</exclude>
+    </testsuite>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./build</directory>
         </whitelist>
     </filter>
     <logging>

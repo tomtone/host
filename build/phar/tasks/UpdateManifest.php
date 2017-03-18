@@ -65,14 +65,6 @@ class UpdateManifest extends Task
     }
 
     /**
-     * The init method: Do init steps.
-     */
-    public function init()
-    {
-        // nothing to do here
-    }
-
-    /**
      * The main entry point method.
      */
     public function main()
