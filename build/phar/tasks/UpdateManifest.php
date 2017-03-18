@@ -5,7 +5,7 @@
  */
 class UpdateManifest extends Task
 {
-    private $_baseUrl = 'https://phabricator.intern.neusta.de/diffusion/HOSTSPHAR/browse/master/hosts/downloads/';
+    private $_baseUrl = 'https://raw.githubusercontent.com/tomtone/test/master/hosts/downloads/';
 
     /**
      * Basic information to be provided/filled for release;
@@ -15,8 +15,8 @@ class UpdateManifest extends Task
     private $_baseData = [
         "name" => "hosts.phar",
         "sha1" => "",
-        "url" => "http://127.0.0.1:8080/magehost/downloads/hosts-v1.2.0.phar",
-        "version" => "1.2.0"
+        "url" => "",
+        "version" => ""
     ];
     /**
      * @var string

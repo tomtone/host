@@ -21,7 +21,7 @@ class UpdateCommand extends Command
     /**
      * manifest.json Path to get Updated versions.
      */
-    const MANIFEST_FILE = 'https://phabricator.intern.neusta.de/diffusion/HOSTSPHAR/browse/master/hosts/manifest.json?view=raw';
+    const MANIFEST_FILE = 'https://raw.githubusercontent.com/tomtone/test/master/hosts/manifest.json';
 
     /**
      *
