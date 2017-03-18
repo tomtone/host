@@ -46,15 +46,15 @@ Adding a new Host:
 
 ```sh
 $ hosts host:add
-$ Please enter name: someHost
-$ Please enter host: www.some-host.de
-$ Please enter username: web-user
-$ Please enter Port:[22] 2001
-$ Please select a host:
-$   [0] local
-$   [1] project
-$  > 0
-$ Added Entry: web-user@www.some-host.de for local scope.
+  Please enter name: someHost
+  Please enter host: www.some-host.de
+  Please enter username: web-user
+  Please enter Port:[22] 2001
+  Please select a host:
+    [0] local
+    [1] project
+   > 0
+  Added Entry: web-user@www.some-host.de for local scope.
 ```
 
 As you can see, there are only 2 scope for locally adding a new host. The Third Scope will be introduced later on.
