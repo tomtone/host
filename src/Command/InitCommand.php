@@ -14,6 +14,7 @@
 namespace Neusta\Hosts\Command;
 
 use Neusta\Hosts\Exception\HostAlreadySet;
+use Neusta\Hosts\Exception\HostAlreadySetException;
 use Neusta\Hosts\Services\InitService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
@@ -26,7 +27,7 @@ use Symfony\Component\Console\Question\Question;
 /**
  * Class InitCommand
  * not implemented yet.
- * 
+ *
  * @codeCoverageIgnore
  *
  * @package Neusta\Hosts\Command
@@ -49,7 +50,7 @@ class InitCommand extends Command
     public function __construct($name = null, InitService $initService = null)
     {
         parent::__construct($name);
-        if(is_null($initService)){
+        if (is_null($initService)) {
             $initService = new InitService();
         }
         $this->_initService = $initService;
@@ -89,7 +90,7 @@ class InitCommand extends Command
         $output->writeln("Still work in Progress!");
         return 0;
         $output->writeln("Checking for local configuration file..");
-        if(!$this->_initService->localConfigurationExist()){
+        if (!$this->_initService->localConfigurationExist()) {
             $output->writeln("Creating empty local configuration file.");
             $this->_initService->createLocalConfiguration();
         }
@@ -98,21 +99,26 @@ class InitCommand extends Command
         $question = new Question('Please enter Path for globally used hosts: ');
         $globalHostsUrl = $helper->ask($input, $output, $question);
 
-        if ($this->getApplication()->getEnvironment() == 'prod') {
+        /** @var \Neusta\Hosts\Console\Application $application */
+        $application = $this->getApplication();
+        if (
+            $application instanceof \Neusta\Hosts\Console\Application &&
+            $application->getEnvironment() == 'prod'
+        ) {
             try {
                 $this->_initService->addGlobalHostUrl($globalHostsUrl);
-            }catch (HostAlreadySet $e){
+            } catch (HostAlreadySetException $e) {
                 $question = new ConfirmationQuestion(
                     sprintf("Value already set to \"%s\".\nYou want to override the value? (default is n) ", $e->getValue()),
                     false,
                     '/^(y|j)/i'
                 );
-                 if($helper->ask($input, $output, $question)){
-                     $output->writeln("Overwriting value to \"$globalHostsUrl\"");
-                     $this->_initService->addGlobalHostUrl($globalHostsUrl, true);
-                 }else{
-                     $output->writeln("Nothing to do.");
-                 }
+                if ($helper->ask($input, $output, $question)) {
+                    $output->writeln("Overwriting value to \"$globalHostsUrl\"");
+                    $this->_initService->addGlobalHostUrl($globalHostsUrl, true);
+                } else {
+                    $output->writeln("Nothing to do.");
+                }
             }
         }
         $output->writeln('Init done...');

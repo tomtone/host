@@ -89,7 +89,12 @@ class ConnectCommand extends AbstractCommand
         $output->writeln('You have selected: ' . $host);
         $output->writeln("establishing connection...");
         $string = $hostService->getConnectionStringByName($host);
-        if ($this->getApplication()->getEnvironment() == 'prod') {
+        /** @var \Neusta\Hosts\Console\Application $application */
+        $application = $this->getApplication();
+        if (
+            $application instanceof \Neusta\Hosts\Console\Application &&
+            $application->getEnvironment() == 'prod'
+        ) {
             $style = new SymfonyStyle($input, $output);
             $style->caution('Leaving local bash!');
             Cli::passthruSsh($string);

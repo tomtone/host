@@ -14,6 +14,7 @@
 namespace Neusta\Hosts\Command;
 
 use Neusta\Hosts\Services\HostService;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
 /**
