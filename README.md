@@ -6,7 +6,7 @@
 
 ### What's hosts-Projectg for? ###
 
-The **hosts** Project is a little helper to manage ssh hosts, users and ports with the level configuration hierarchy.
+The **hosts** Project is a little helper to manage ssh hosts, users and ports with hierarchy for configuration scope.
 
 ### Minimum Requirements ###
 
