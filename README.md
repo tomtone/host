@@ -4,7 +4,7 @@
 [![Build Status](https://scrutinizer-ci.com/g/tomtone/test/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/build-status/master)
 [![Code Coverage](https://scrutinizer-ci.com/g/tomtone/test/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/?branch=master)
 
-### What's hosts-Projectg for? ###
+### What's hosts-Project for? ###
 
 The **hosts** Project is a little helper to manage ssh hosts, users and ports with hierarchy for configuration scope.
 
