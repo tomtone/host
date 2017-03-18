@@ -1,6 +1,6 @@
 {
     "name": "neusta/hosts",
-    "version": "v1.0.0-a",
+    "version": "v1.0.2",
     "require": {
         "symfony/console": "^3.2",
         "symfony/filesystem": "^3.2",

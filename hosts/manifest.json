@@ -10,5 +10,11 @@
     "sha1": "09258d7dd33eb562f6c51df0c6df688087357a9d",
     "url": "https:\/\/raw.githubusercontent.com\/tomtone\/test\/master\/hosts\/downloads\/hosts-v1.0.0-a.phar",
     "version": "1.0.1"
+  },
+  {
+    "name": "hosts.phar",
+    "sha1": "50f173593f497199263e32f54814f987707bad82",
+    "url": "https:\/\/raw.githubusercontent.com\/tomtone\/test\/master\/hosts\/downloads\/hosts-v1.0.2.phar",
+    "version": "v1.0.2"
   }
 ]
