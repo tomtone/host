@@ -23,7 +23,7 @@ There are 3 Options to install:
 ### As a Phar (Recommended)
 
 ```bash
-$ curl -LSs https://box-project.github.io/box2/installer.php | php
+$ curl -LSs https://tomtone.github.io/host/installer.php | php
 ```
 
 The command will check your PHP settings, warn you of any issues, and the download it to the current directory. From there, you may place it anywhere that will make it easier for you to access (such as `/usr/local/bin`) and chmod it to `755`.
