@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the teamneusta/codeception-docker-chrome package.
+ * This file is part of the teamneusta/hosts project.
  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -38,6 +38,10 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     *
+     * @covers \Neusta\Hosts\Services\HostService::update
+     * @covers \Neusta\Hosts\Services\HostService::setScope
+     *
      * @return void
      */
     public function testUpdateWillPassConfigArrayToUpdateMethodWithScopeParam()

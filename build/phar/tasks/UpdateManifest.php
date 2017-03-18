@@ -47,7 +47,7 @@ class UpdateManifest extends Task
 
     public function __construct(VersionManager $versionManager = null)
     {
-        if($versionManager == null){
+        if ($versionManager == null) {
             $versionManager = new VersionManager();
         }
 
@@ -150,6 +150,11 @@ class UpdateManifest extends Task
     }
 }
 
+/**
+ * Class VersionManager
+ *
+ * @codeCoverageIgnore
+ */
 class VersionManager
 {
     public function getVersion()

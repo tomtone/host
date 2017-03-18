@@ -64,6 +64,11 @@ class UpdateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
+        $updates = $manager->getManifest()->getUpdates();
+        /** @var \Herrera\Phar\Update\Update $latestUpdate */
+        $latestUpdate = array_shift($updates);
+        $output->writeln('Updating to Version: ' . $latestUpdate->getVersion()->__toString());
         $manager->update($this->getApplication()->getVersion(), true);
+        $output->writeln('done.');
     }
 }
