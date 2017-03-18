@@ -5,13 +5,11 @@ Phing build file to create a executable phar file by defined src.
 Build phar with:
     phing dist
 -->
-<project name="hosts" default="dist_unix" basedir=".">
-    <taskdef name="patched-pharpackage" classname="build.phar.tasks.PatchedPharPackageTask" />
+<project name="hosts" default="dist" basedir=".">
     <taskdef name="update-manifest" classname="build.phar.tasks.UpdateManifest" />
     <property name="phar" value="${phing.project.name}.phar"/>
     <fileset dir="." id="root_folder">
-        <include name="config.yaml" />
-        <include name="MIT-LICENSE.txt" />
+        <include name="LICENSE.txt" />
     </fileset>
     <fileset dir="src"  id="src_folder">
         <include name="**/**" />
@@ -37,44 +35,8 @@ Build phar with:
     <target name="dist">
         <exec command="composer install --no-dev --ignore-platform-reqs --optimize-autoloader" dir="${project.basedir}" passthru="true"
               checkreturn="true"/>
-        <phingcall target="dist_unix">
-            <property name="compression" value="gzip" />
-        </phingcall>
-        <!-- Revert dev settings -->
-        <!--exec command="composer install" dir="${project.basedir}" passthru="true" checkreturn="true"/-->
-    </target>
-    <target name="dist_unix">
-        <patched-pharpackage basedir="./" stub="build/phar/_cli_stub.php" signature="sha512" compression="${compression}" destfile="./${phar}">
-            <metadata>
-                <element name="version" value="v1.0.0-a" />
-                <element name="authors">
-                    <element name="Thomas von Gostomski">
-                        <element name="e-mail" value="t.gostomski@neusta.de" />
-                    </element>
-                </element>
-            </metadata>
-            <fileset refid="root_folder" />
-            <fileset refid="src_folder" />
-            <fileset refid="vendor_folder" />
-        </patched-pharpackage>
-        <!-- make phar executable -->
-        <chmod file="./${phar}" mode="775" />
-    </target>
-    <target name="provide">
-        <exec command="composer install --no-dev --ignore-platform-reqs --optimize-autoloader" dir="${project.basedir}" passthru="true"
-              checkreturn="true"/>
-        <phingcall target="dist_unix">
-            <property name="compression" value="gzip" />
-        </phingcall>
+        <exec command="box build -vvv" dir="${project.basedir}" passthru="true"/>
         <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="./hosts/downloads"/>
-        <!-- Revert dev settings -->
-        <exec command="composer install" dir="${project.basedir}" passthru="true" checkreturn="true"/>
-    </target>
-    <target name="test">
-        <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="./hosts/downloads"/>
-    </target>
-    <target name="install">
-        <copy file="${project.basedir}/${phar}" tofile="${user.home}/bin/${phing.project.name}" overwrite="true"/>
-        <exec command="chmod a+x ${user.home}/bin/${phing.project.name};" />
+        <exec command="composer install --optimize-autoloader" dir="${project.basedir}" passthru="true" checkreturn="true"/>
     </target>
 </project>

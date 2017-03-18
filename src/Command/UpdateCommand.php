@@ -33,8 +33,7 @@ class UpdateCommand extends Command
             ->setName('self-update')
             ->setAliases(['selfupdate'])
             // the short description shown while running "php bin/console list"
-            ->setDescription('Update magehost.phar to latest version.');
-        ;
+            ->setDescription('Update magehost.phar to latest version.');;
     }
 
     /**
@@ -45,7 +44,7 @@ class UpdateCommand extends Command
      * execute() method, you set the code to execute by passing
      * a Closure to the setCode() method.
      *
-     * @param InputInterface  $input  An InputInterface instance
+     * @param InputInterface $input An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
      *
      * @return null|int null or 0 if everything went fine, or an error code
@@ -56,11 +55,7 @@ class UpdateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        try {
-            $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
-            $manager->update($this->getApplication()->getVersion(), true);
-        }catch (\Herrera\Json\Exception\JsonException $e){
-            var_dump($e->getErrors());
-        }
+        $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
+        $manager->update($this->getApplication()->getVersion(), true);
     }
 }

@@ -106,11 +106,8 @@ class UpdateManifest extends Task
      */
     private function getVersion()
     {
-        $composerJson = file_get_contents($this->baseDir . DIRECTORY_SEPARATOR . 'composer.json');
-        $composerJson = json_decode($composerJson, true);
-
-        $version = $composerJson['version'];
-        return $version;
+        exec('git describe --tags',$latest_tag);
+        return $latest_tag[0];
     }
 
     /**
