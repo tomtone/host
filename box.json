@@ -18,6 +18,6 @@
   ],
   "git-version": "package_version",
   "main": "bin/hosts",
-  "output": "hosts-@git-version@.phar",
+  "output": "hosts.phar",
   "stub": true
 }
