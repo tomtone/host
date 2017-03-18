@@ -1,0 +1,9 @@
+language: php
+php:
+  - '7.0'
+
+install:
+  - composer install
+
+script:
+  - vendor/bin/phpunit -c phpunit.xml --coverage --coverage-xml --coverage-html
