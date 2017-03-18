@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  ~ This file is part of the teamneusta/codeception-docker-chrome package.
+  ~ This file is part of the teamneusta/hosts project.
   ~ Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
   ~ For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
   ~ @license http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -44,7 +44,7 @@ Build phar with (default Task is dist for building):
         <exec command="composer install --no-dev --ignore-platform-reqs --optimize-autoloader" dir="${project.basedir}" passthru="true"
               checkreturn="true"/>
         <exec command="box build -vvv" dir="${project.basedir}" passthru="true"/>
-        <update-manifest baseDir="./" manifestPath="./hosts/manifest.json" downloadPath="./hosts/downloads"/>
+        <update-manifest baseDir="./" manifestPath="./docs/manifest.json" downloadPath="./docs/downloads"/>
         <exec command="composer install --optimize-autoloader" dir="${project.basedir}" passthru="true" checkreturn="true"/>
     </target>
 </project>
