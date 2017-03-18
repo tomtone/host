@@ -4,12 +4,12 @@
     "require": {
         "symfony/console": "^3.2",
         "symfony/filesystem": "^3.2",
-        "herrera-io/phar-update": "1.*",
-        "mikey179/vfsStream": "^1.6"
+        "herrera-io/phar-update": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
-        "phing/phing": "2.*"
+        "phing/phing": "2.*",
+        "mikey179/vfsStream": "^1.6"
     },
     "autoload": {
         "psr-4": {

@@ -1,1 +1,8 @@
-[{"name":"hosts.phar","sha1":"b29f704386143a940699cad255b873097623a060","url":"https:\/\/raw.githubusercontent.com\/tomtone\/test\/master\/hosts\/downloads\/hosts-1.0.0-alpha.phar","version":"1.0.0-alpha"},{"name":"hosts.phar","sha1":"17be49c0bc948c1d55263892d35d705494818cf3","url":"https:\/\/raw.githubusercontent.com\/tomtone\/test\/master\/hosts\/downloads\/hosts-1.0.1.phar","version":"1.0.1"},{"name":"hosts.phar","sha1":"f0a01210327940d17e9408d814f4ffb0207ed46b","url":"https:\/\/raw.githubusercontent.com\/tomtone\/test\/master\/hosts\/downloads\/hosts-1.5.0.phar","version":"1.5.0"}]
+[
+  {
+    "name": "hosts.phar",
+    "sha1": "b29f704386143a940699cad255b873097623a060",
+    "url": "https://raw.githubusercontent.com/tomtone/test/master/hosts/downloads/hosts-1.0.0.phar",
+    "version": "1.0.0-alpha"
+  }
+]
