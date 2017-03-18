@@ -12,7 +12,7 @@ The **hosts** Project is a little helper to manage ssh hosts, users and ports wi
 
 
 * Unix System
-* PHP 7.0 <=
+* PHP 7.0 >=
 * ssh
 
 How to get started?
