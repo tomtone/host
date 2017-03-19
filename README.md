@@ -1,8 +1,8 @@
 
 # The Hosts-Project #
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomtone/test/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/tomtone/test/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/tomtone/test/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/tomtone/test/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomtone/host/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomtone/host/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/tomtone/host/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tomtone/host/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/tomtone/host/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/tomtone/host/?branch=master)
 
 ### What's hosts-Project for? ###
 
