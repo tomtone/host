@@ -36,12 +36,8 @@ LOGO;
         parent::__construct($name, $version);
     }
 
-    public function getEnvironment()
-    {
-        return $this->environment;
-    }
-
     /**
+     * @codeCoverageIgnore
      * @return string
      */
     public function getHelp()

@@ -9,6 +9,7 @@
 
 namespace Neusta\Hosts\Command;
 
+use Neusta\Hosts\Services\HostService;
 use Neusta\Hosts\Services\Provider\Cli;
 use Neusta\Hosts\Services\Validator\Scope;
 use Symfony\Component\Console\Exception\LogicException;
@@ -21,6 +22,29 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ConnectCommand extends AbstractCommand
 {
+    /**
+     * @var Cli
+     */
+    private $_cli;
+
+    /**
+     * Constructor.
+     *
+     * @codeCoverageIgnore
+     *
+     * @param string|null $name The name of the command; passing null means it must be set in configure()
+     * @param HostService $hostService
+     * @param Cli $cli
+     */
+    public function __construct($name = null, HostService $hostService = null, Cli $cli = null)
+    {
+        parent::__construct($name, $hostService);
+        if(is_null($cli)){
+            $cli = new Cli();
+        }
+        $this->_cli = $cli;
+    }
+
     /**
      * Configure connect Command.
      */
@@ -85,16 +109,11 @@ class ConnectCommand extends AbstractCommand
         $output->writeln('You have selected: ' . $host);
         $output->writeln("establishing connection...");
         $string = $hostService->getConnectionStringByName($host);
-        /** @var \Neusta\Hosts\Console\Application $application */
-        $application = $this->getApplication();
-        if (
-            $application instanceof \Neusta\Hosts\Console\Application &&
-            $application->getEnvironment() == 'prod'
-        ) {
-            $style = new SymfonyStyle($input, $output);
-            $style->caution('Leaving local bash!');
-            Cli::passthruSsh($string);
-        }
+
+        $style = new SymfonyStyle($input, $output);
+        $style->caution('Leaving local bash!');
+        $this->_cli->passthruSsh($string);
+
         return 0;
     }
 }

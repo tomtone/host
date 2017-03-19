@@ -18,7 +18,7 @@ namespace Neusta\Hosts\Services\Provider;
  */
 class Cli
 {
-    public static function passthruSsh($string)
+    public function passthruSsh($string)
     {
         return passthru("ssh " . $string);
     }

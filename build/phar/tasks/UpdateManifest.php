@@ -45,6 +45,13 @@ class UpdateManifest extends Task
      */
     private $downloadPath;
 
+    /**
+     * UpdateManifest constructor.
+     *
+     * @codeCoverageIgnore
+     *
+     * @param VersionManager|null $versionManager
+     */
     public function __construct(VersionManager $versionManager = null)
     {
         if ($versionManager == null) {

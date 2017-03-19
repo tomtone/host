@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the teamneusta/codeception-docker-chrome package.
+ * This file is part of the teamneusta/hosts project.
  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -10,6 +10,7 @@
 namespace Neusta\Hosts\Test\Services\Provider;
 
 use Neusta\Hosts\Services\Provider\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Class FilesystemTest
@@ -117,6 +118,32 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->method('getContents')
             ->with('someFile.txt')
             ->willReturn('{noneJsonString]');
+
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $result = $filesystem->getConfigurationFile('someFile.txt', true);
+
+        $this->assertFalse($result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testGetConfigurationFileWillThrowExceptionOnErrorInFileDumping()
+    {
+        $this->expectException(\IOException::class);
+
+        $this->fileSystem->expects($this->once())
+            ->method('exists')
+            ->willReturn(false);
+        $this->fileSystem->expects($this->once())
+            ->method('dumpFile')
+            ->with(
+                'someFile.txt',
+                json_encode(['hosts' => []])
+            )
+        ->willThrowException(new \Exception('Fehler'));
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
@@ -417,5 +444,18 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
         $result = $filesystem->getGlobalConfiguration();
 
         $this->assertSame([], $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function addScopeWillReturnEmptyConfigWithHostsValueOnEmptyConfigParameter()
+    {
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $result = $filesystem->addScope(null,null);
+
+        self::assertSame(['hosts' => []], $result);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the teamneusta/codeception-docker-chrome package.
+ * This file is part of the teamneusta/hosts project.
  * Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -12,6 +12,7 @@ namespace Neusta\Hosts\Tests\Command;
 use Neusta\Hosts\Command\ConnectCommand;
 use Neusta\Hosts\Console\Application;
 use Neusta\Hosts\Services\HostService;
+use Neusta\Hosts\Services\Provider\Cli;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ConnectCommandTest extends \PHPUnit_Framework_TestCase
@@ -21,6 +22,11 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
      * @var HostService | \PHPUnit_Framework_MockObject_MockObject
      */
     private $hostServiceMock;
+
+    /**
+     * @var Cli
+     */
+    private $cliServiceMock;
 
     public function setUp()
     {
@@ -34,6 +40,10 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
             ->willReturn([
                 'SomeHost'
             ]);
+
+        $this->cliServiceMock = $this->getMockBuilder('\\Neusta\\Hosts\\Services\\Provider\\Cli')
+            ->setMethods(['passthruSsh'])
+            ->getMock();
     }
 
     /**
@@ -44,7 +54,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
     public function testConnectToHostWillCreateCliConnection()
     {
         $baseApplication = new Application(null, null, 'dev');
-        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
+        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock, $this->cliServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);
@@ -67,7 +77,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
     public function testConnectToHostWillExitOnChoosingExitOption()
     {
         $baseApplication = new Application(null, null, 'dev');
-        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
+        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock, $this->cliServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);
@@ -92,7 +102,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
         $this->markTestSkipped('This test is not supported on OSX.');
 
         $baseApplication = new Application(null, null, 'dev');
-        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock));
+        $baseApplication->add(new ConnectCommand(null, $this->hostServiceMock, $this->cliServiceMock));
 
         $command = $baseApplication->find('connect');
         $commandTester = new CommandTester($command);

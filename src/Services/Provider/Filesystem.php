@@ -152,7 +152,7 @@ class Filesystem
                 $defaults = ['hosts' => []];
                 $this->fs->dumpFile($fileName, json_encode($defaults));
             } catch (\Exception $e) {
-                // implement propper error handling
+                throw new \IOException($e->getMessage());
             }
         }
         $config = json_decode($this->file->getContents($fileName), true);
@@ -235,7 +235,7 @@ class Filesystem
      *
      * @return mixed
      */
-    private function addScope($config, $scope)
+    public function addScope($config, $scope)
     {
         // do not add Scope during update. Scope will always be set when reading configuration.
         if (!$this->_isUpdate && is_array($config)) {

@@ -72,15 +72,10 @@ class AddCommand extends AbstractCommand
         );
         $question->setErrorMessage('Scope #%s is invalid.');
         $scope = $helper->ask($input, $output, $question);
-        /** @var \Neusta\Hosts\Console\Application $application */
-        $application = $this->getApplication();
-        if (
-            $application instanceof \Neusta\Hosts\Console\Application &&
-            $application->getEnvironment() == 'prod'
-        ) {
-            $this->_hostService->setScope($scope);
-            $this->_hostService->update($name, $hostname, $user, $port);
-        }
+
+        $this->_hostService->setScope($scope);
+        $this->_hostService->update($name, $hostname, $user, $port);
+
         $output->writeln('Added Entry: ' . $user . '@' . $hostname . ' for ' . $scope . ' scope.');
         return 0;
     }
