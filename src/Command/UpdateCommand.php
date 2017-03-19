@@ -11,6 +11,7 @@ namespace Neusta\Hosts\Command;
 
 use Herrera\Phar\Update\Manager;
 use Herrera\Phar\Update\Manifest;
+use Herrera\Version\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -67,8 +68,16 @@ class UpdateCommand extends Command
         $updates = $manager->getManifest()->getUpdates();
         /** @var \Herrera\Phar\Update\Update $latestUpdate */
         $latestUpdate = array_shift($updates);
-        $output->writeln('Updating to Version: ' . $latestUpdate->getVersion()->__toString());
+        $currentVersion = $this->getApplication()->getVersion();
+        if($latestUpdate->getVersion()->__toString() == $currentVersion){
+            $output->writeln('You got already the lastest Version: ' . $currentVersion);
+            $output->writeln('nothing to do.');
+            return 0;
+        }else {
+            $output->writeln('Updating to Version: ' . $latestUpdate->getVersion()->__toString());
+        }
         $manager->update($this->getApplication()->getVersion(), true);
         $output->writeln('done.');
+        return 0;
     }
 }
