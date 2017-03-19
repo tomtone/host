@@ -23,29 +23,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ConnectCommand extends AbstractCommand
 {
     /**
-     * @var Cli
-     */
-    private $_cli;
-
-    /**
-     * Constructor.
-     *
-     * @codeCoverageIgnore
-     *
-     * @param string|null $name The name of the command; passing null means it must be set in configure()
-     * @param HostService $hostService
-     * @param Cli $cli
-     */
-    public function __construct($name = null, HostService $hostService = null, Cli $cli = null)
-    {
-        parent::__construct($name, $hostService);
-        if(is_null($cli)){
-            $cli = new Cli();
-        }
-        $this->_cli = $cli;
-    }
-
-    /**
      * Configure connect Command.
      */
     protected function configure()
