@@ -69,11 +69,11 @@ class UpdateCommand extends Command
         /** @var \Herrera\Phar\Update\Update $latestUpdate */
         $latestUpdate = array_shift($updates);
         $currentVersion = $this->getApplication()->getVersion();
-        if($latestUpdate->getVersion()->__toString() == $currentVersion){
+        if ($latestUpdate->getVersion()->__toString() == $currentVersion) {
             $output->writeln('You got already the lastest Version: ' . $currentVersion);
             $output->writeln('nothing to do.');
             return 0;
-        }else {
+        } else {
             $output->writeln('Updating to Version: ' . $latestUpdate->getVersion()->__toString());
         }
         $manager->update($this->getApplication()->getVersion(), true);
