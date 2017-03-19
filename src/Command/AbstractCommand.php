@@ -42,10 +42,10 @@ abstract class AbstractCommand extends Command
     public function __construct($name = null, HostService $hostService = null, Cli $cli = null)
     {
         parent::__construct($name);
-        if(is_null($hostService)){
+        if (is_null($hostService)) {
             $hostService = new HostService();
         }
-        if(is_null($cli)){
+        if (is_null($cli)) {
             $cli = new Cli();
         }
         $this->_cli = $cli;
