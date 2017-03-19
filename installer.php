@@ -7,6 +7,9 @@
  *
  */
 
+/**
+ * originally authored by Kevin Herrera<kevin@herrera.io>
+ */
 namespace
 
 {
