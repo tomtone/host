@@ -7,6 +7,7 @@
 ### What's hosts-Project for? ###
 
 The **hosts** Project is a little helper to manage ssh hosts, users and ports with hierarchy for configuration scope.
+Only working with key-based authentication.
 
 ### Minimum Requirements ###
 
@@ -14,6 +15,7 @@ The **hosts** Project is a little helper to manage ssh hosts, users and ports wi
 * Unix System
 * PHP 7.0 >=
 * ssh
+* public key authorized on remote server
 
 How to get started?
 ---------------------
