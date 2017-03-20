@@ -20,9 +20,7 @@ Only working with key-based authentication.
 How to get started?
 ---------------------
 
-There are 3 Options to install:
-
-### As a Phar (Recommended)
+Install hosts:  ### As a Phar (Recommended)
 
 ```bash
 $ curl -LSs https://tomtone.github.io/host/installer.php | php
