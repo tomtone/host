@@ -238,7 +238,7 @@ class Filesystem
     public function addScope($config, $scope)
     {
         // do not add Scope during update. Scope will always be set when reading configuration.
-        if (!$this->_isUpdate && is_array($config)) {
+        if (!$this->_isUpdate && is_array($config) && isset($config['hosts'])) {
             foreach ($config['hosts'] as $key => $entry) {
                 $config['hosts'][$key]['scope'] = $scope;
             }
