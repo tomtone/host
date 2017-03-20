@@ -20,7 +20,7 @@ namespace
     $n = PHP_EOL;
 
     set_error_handler(
-        function ($code, $message, $file, $line) use ($n) {
+        function ($code, $message) use ($n) {
             if ($code & error_reporting()) {
                 echo "$n{$n}Error: $message$n$n";
                 exit(1);
@@ -81,7 +81,7 @@ namespace
         'The "phar.readonly" setting is off.',
         'Notice: The "phar.readonly" setting needs to be off to create Phars.',
         function () {
-            return (false == ini_get('phar.readonly'));
+            return (ini_get_bool('phar.readonly') === false);
         },
         false
     );
@@ -91,7 +91,7 @@ namespace
         'The "detect_unicode" setting is off.',
         'The "detect_unicode" setting needs to be off.',
         function () {
-            return (false == ini_get('detect_unicode'));
+            return (ini_get_bool('detect_unicode') === false);
         }
     );
 
@@ -119,7 +119,7 @@ namespace
         'The "allow_url_fopen" setting is on.',
         'The "allow_url_fopen" setting needs to be on.',
         function () {
-            return (true == ini_get('allow_url_fopen'));
+            return ini_get_bool('allow_url_fopen');
         }
     );
 
@@ -172,7 +172,9 @@ namespace
 
     echo " - Making Host executable...$n";
 
-    @chmod($item->name, 0755);
+    if (@chmod($item->name, 0755) === false) {
+        throw new \RuntimeException('Permissions on '.$item->name.' could not be changed.');
+    }
 
     echo "{$n}Host installed!$n";
 
@@ -197,6 +199,15 @@ namespace
                 exit(1);
             }
         }
+    }
+
+    /**
+     * @param string $varname
+     *
+     * @return bool
+     */
+    function ini_get_bool($varname) {
+        return \filter_var(\ini_get($varname), FILTER_VALIDATE_BOOLEAN);
     }
 }
 
