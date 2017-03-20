@@ -450,12 +450,26 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return void
      */
-    public function addScopeWillReturnEmptyConfigWithHostsValueOnEmptyConfigParameter()
+    public function addScopeWillReturnEmptyConfigWithHostsValueOnNonArrayConfigParameter()
     {
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
         $result = $filesystem->addScope(null,null);
 
         self::assertSame(['hosts' => []], $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function addScopeWillNotModifyConfigParameterIfHostsKeyIsNotSet()
+    {
+        $config = [];
+        $filesystem = new Filesystem($this->fileSystem, $this->file);
+
+        $result = $filesystem->addScope([], 'foobar');
+
+        self::assertSame($config, $result);
     }
 }
