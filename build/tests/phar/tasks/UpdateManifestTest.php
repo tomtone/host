@@ -19,7 +19,6 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
      * @var \org\bovigo\vfs\vfsStreamDirectory
      */
     protected $root;
-
     /**
      * @var UpdateManifest
      */
@@ -32,8 +31,18 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
         $this->root = vfsStream::setup('testDir', null, [
             'hosts.phar' => 'content',
             'manifest.json' => '[]',
-            'manifest_same_release.json' => $this->getSameReleaseManifest(),
-            'manifest_filled.json' => $this->getPrefilledManifest(),
+            'manifest_same_release.json' => json_encode([[
+                'name' => 'some_file.phar',
+                'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
+                'url' => 'https://another-url.de',
+                'version' => '2.5.0'
+            ]]),
+            'manifest_filled.json' => json_encode([[
+                'name' => 'some_file.phar',
+                'sha1' => 'some_sha1',
+                'url' => 'https://another-url.de',
+                'version' => '1.5.0'
+            ]]),
             'test_release' => []
         ]);
 
@@ -53,36 +62,13 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
         $this->updateManifest->setDownloadPath('test_release');
     }
 
-    public function dataProviderGetJsonStrings()
-    {
-        return [
-            'Manifest exists' => [
-                'testDir/manifest.json',
-                'vfs://testDir/manifest.json'
-            ],
-            'Duplicate Release in Manifest' => [
-                'testDir/manifest_same_release.json',
-                'vfs://testDir/manifest_same_release.json'
-            ],
-            'Manifest is missing' => [
-                'testDir/manifest_missing.json',
-                'vfs://testDir/manifest_missing.json'
-            ]
-        ];
-    }
-
     /**
      * @test
-     * @dataProvider dataProviderGetJsonStrings
-     *
-     * @param $file
-     * @param $vfs
-     *
      * @return void
      */
-    public function testMainWillAddReleaseToManifestFileForDifferentCases($file, $vfs) {
+    public function testMainWillAddReleaseToManifestFile() {
 
-        $this->updateManifest->setManifestPath(vfsStream::url($file));
+        $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest.json'));
         $this->updateManifest->main();
         $result = [
             [
@@ -93,7 +79,33 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $manifestContent = file_get_contents($vfs);
+        $manifestContent = file_get_contents('vfs://testDir/manifest.json');
+
+        self::assertEquals(
+            json_encode($result),
+            $manifestContent);
+
+        self::assertSame(1, count(json_decode($manifestContent)));
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testMainWillReplaceDuplicateReleasesFromManifestFile() {
+
+        $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest_same_release.json'));
+        $this->updateManifest->main();
+        $result = [
+            [
+                'name' => 'hosts.phar',
+                'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
+                'url' => 'https://tomtone.github.io/host/releases/hostsTest-2.5.0.phar',
+                'version' => '2.5.0'
+            ]
+        ];
+
+        $manifestContent = file_get_contents('vfs://testDir/manifest_same_release.json');
 
         self::assertEquals(
             json_encode($result),
@@ -135,28 +147,28 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return string
+     * @test
+     * @return void
      */
-    private function getSameReleaseManifest(): string
-    {
-        return json_encode([[
-            'name' => 'some_file.phar',
-            'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
-            'url' => 'https://another-url.de',
-            'version' => '2.5.0'
-        ]]);
-    }
+    public function testMainWillCreateManifestFileOnFirstRelease() {
 
-    /**
-     * @return string
-     */
-    private function getPrefilledManifest(): string
-    {
-        return json_encode([[
-            'name' => 'some_file.phar',
-            'sha1' => 'some_sha1',
-            'url' => 'https://another-url.de',
-            'version' => '1.5.0'
-        ]]);
+        $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest_missing.json'));
+        $this->updateManifest->main();
+        $result = [
+            [
+                'name' => 'hosts.phar',
+                'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
+                'url' => 'https://tomtone.github.io/host/releases/hostsTest-2.5.0.phar',
+                'version' => '2.5.0'
+            ]
+        ];
+
+        $manifestContent = file_get_contents('vfs://testDir/manifest_missing.json');
+
+        self::assertEquals(
+            json_encode($result),
+            $manifestContent);
+
+        self::assertSame(1, count(json_decode($manifestContent, true)));
     }
 }
