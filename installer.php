@@ -388,9 +388,9 @@ namespace Herrera\Version
          */
         public static function compareIdentifiers(array $left, array $right)
         {
-            if ($left && empty($right)) {
+            if (! empty($left) && empty($right)) {
                 return self::LESS_THAN;
-            } elseif (empty($left) && $right) {
+            } elseif (empty($left) && ! empty($right)) {
                 return self::GREATER_THAN;
             }
 
