@@ -76,16 +76,6 @@ namespace
         false
     );
 
-    // check phar readonly setting
-    check(
-        'The "phar.readonly" setting is off.',
-        'Notice: The "phar.readonly" setting needs to be off to create Phars.',
-        function() {
-            return (ini_get_bool('phar.readonly') === false);
-        },
-        false
-    );
-
     // check detect unicode setting
     check(
         'The "detect_unicode" setting is off.',
