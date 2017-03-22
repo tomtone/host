@@ -74,7 +74,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
             [
                 'name' => 'hosts.phar',
                 'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
-                'url' => 'https://tomtone.github.io/host/releases/hostsTest-2.5.0.phar',
+                'url' => 'http://teamneusta.github.io/php-cli-hosts/releases/hostsTest-2.5.0.phar',
                 'version' => '2.5.0'
             ]
         ];
@@ -100,7 +100,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
             [
                 'name' => 'hosts.phar',
                 'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
-                'url' => 'https://tomtone.github.io/host/releases/hostsTest-2.5.0.phar',
+                'url' => 'http://teamneusta.github.io/php-cli-hosts/releases/hostsTest-2.5.0.phar',
                 'version' => '2.5.0'
             ]
         ];
@@ -132,7 +132,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
             [
                 'name' => 'hosts.phar',
                 'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
-                'url' => 'https://tomtone.github.io/host/releases/hostsTest-2.5.0.phar',
+                'url' => 'http://teamneusta.github.io/php-cli-hosts/releases/hostsTest-2.5.0.phar',
                 'version' => '2.5.0'
             ]
         ];
@@ -158,7 +158,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
             [
                 'name' => 'hosts.phar',
                 'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
-                'url' => 'https://tomtone.github.io/host/releases/hostsTest-2.5.0.phar',
+                'url' => 'http://teamneusta.github.io/php-cli-hosts/releases/hostsTest-2.5.0.phar',
                 'version' => '2.5.0'
             ]
         ];

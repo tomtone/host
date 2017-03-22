@@ -12,7 +12,7 @@
  */
 class UpdateManifest extends Task
 {
-    private $_baseUrl = 'https://tomtone.github.io/host/releases/';
+    private $_baseUrl = 'http://teamneusta.github.io/php-cli-hosts/releases/';
 
     /**
      * @var VersionManager
