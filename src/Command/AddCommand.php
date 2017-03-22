@@ -7,9 +7,9 @@
  *
  */
 
-namespace Neusta\Hosts\Command;
+namespace TeamNeusta\Hosts\Command;
 
-use Neusta\Hosts\Services\HostService;
+use TeamNeusta\Hosts\Services\HostService;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
@@ -46,7 +46,7 @@ class AddCommand extends AbstractCommand
      *
      * @see setCode()
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $helper = new QuestionHelper();
 

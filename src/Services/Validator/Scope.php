@@ -7,7 +7,7 @@
  *
  */
 
-namespace Neusta\Hosts\Services\Validator;
+namespace TeamNeusta\Hosts\Services\Validator;
 
 class Scope
 {
@@ -15,7 +15,7 @@ class Scope
     const SCOPE_GLOBAL = 'global';
     const SCOPE_PROJECT = 'project';
 
-    public static function validateScope($scope)
+    public static function validateScope(string $scope = null)
     {
         if ($scope != self::SCOPE_GLOBAL && $scope != self::SCOPE_LOCAL && $scope != self::SCOPE_PROJECT && $scope != null) {
             throw new \InvalidArgumentException(printf('Scope "%s" not defined.', $scope));

@@ -7,7 +7,7 @@
  *
  */
 
-namespace Neusta\Hosts\Console;
+namespace TeamNeusta\Hosts\Console;
 
 class Application extends \Symfony\Component\Console\Application
 {
@@ -40,7 +40,7 @@ LOGO;
      * @codeCoverageIgnore
      * @return string
      */
-    public function getHelp()
+    public function getHelp() : string
     {
         return static::$_logo . parent::getHelp();
     }

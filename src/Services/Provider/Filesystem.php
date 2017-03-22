@@ -7,14 +7,14 @@
  *
  */
 
-namespace Neusta\Hosts\Services\Provider;
+namespace TeamNeusta\Hosts\Services\Provider;
 
-use Neusta\Hosts\Exception\HostAlreadySetException;
+use TeamNeusta\Hosts\Exception\HostAlreadySetException;
 
 /**
  * Class Filesystem
  *
- * @package Neusta\Hosts\Services\Provider
+ * @package TeamNeusta\Hosts\Services\Provider
  */
 class Filesystem
 {
@@ -65,14 +65,8 @@ class Filesystem
         File $file = null
     )
     {
-        if (is_null($fs)) {
-            $fs = new \Symfony\Component\Filesystem\Filesystem();
-        }
-        if (is_null($file)) {
-            $file = new File();
-        }
-        $this->fs = $fs;
-        $this->file = $file;
+        $this->fs = $fs ?? new \Symfony\Component\Filesystem\Filesystem();
+        $this->file = $file ?? new File();
     }
 
     /**
@@ -103,7 +97,7 @@ class Filesystem
      *
      * @return bool|array
      */
-    public function getLocalConfiguration()
+    public function getLocalConfiguration() : array
     {
         $fileName = $this->getFilename(self::getHomeDir());
         $config = $this->getConfigurationFile($fileName);
@@ -116,7 +110,7 @@ class Filesystem
      *
      * @return bool|array
      */
-    public function getProjectConfiguration()
+    public function getProjectConfiguration() : array
     {
         $filename = $this->getFilename();
         $config = $this->getConfigurationFile($filename, false);
@@ -129,7 +123,7 @@ class Filesystem
      *
      * @return bool|array
      */
-    public function getGlobalConfiguration()
+    public function getGlobalConfiguration() : array
     {
         $fileName = $this->getGlobalUrlFromConfig();
         $config = [];
@@ -142,7 +136,9 @@ class Filesystem
 
     /**
      * @param $fileName
-     * @return bool|mixed
+     * @param bool $createIfNotExist
+     * @return array|bool|mixed|null
+     * @throws \IOException
      */
     public function getConfigurationFile($fileName, $createIfNotExist = true)
     {
@@ -205,9 +201,9 @@ class Filesystem
         $fileName = $this->getFilename(self::getHomeDir());
         $config = $this->getConfigurationFile($fileName);
 
-        if (array_key_exists('hosts_url', $config) && $override) {
+        if (isset($config['hosts_url']) && $override) {
             $config['hosts_url'] = $hostUrl;
-        } elseif (array_key_exists('hosts_url', $config)) {
+        } elseif (isset($config['hosts_url'])) {
             throw new HostAlreadySetException($config['hosts_url']);
         } else {
             $config['hosts_url'] = $hostUrl;
@@ -221,7 +217,7 @@ class Filesystem
      * @param string $baseDir
      * @return string
      */
-    public function getFilename($baseDir = '.')
+    public function getFilename($baseDir = '.') : string
     {
         $fileName = $baseDir . DIRECTORY_SEPARATOR . self::CONFIGURATION_FILE_NAME;
         return $fileName;
@@ -235,7 +231,7 @@ class Filesystem
      *
      * @return mixed
      */
-    public function addScope($config, $scope)
+    public function addScope($config, $scope) : array
     {
         // do not add Scope during update. Scope will always be set when reading configuration.
         if (!$this->_isUpdate && is_array($config) && isset($config['hosts'])) {
@@ -254,13 +250,13 @@ class Filesystem
      *
      * @return bool | string
      */
-    private function getGlobalUrlFromConfig()
+    private function getGlobalUrlFromConfig() : string
     {
         $fileName = $this->getFilename(self::getHomeDir());
         $config = $this->getConfigurationFile($fileName, false);
 
         $hostUrl = false;
-        if (array_key_exists('hosts_url', $config)) {
+        if (isset($config['hosts_url'])) {
             $hostUrl = $config['hosts_url'];
         }
 

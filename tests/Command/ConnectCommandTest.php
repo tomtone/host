@@ -7,12 +7,12 @@
  *
  */
 
-namespace Neusta\Hosts\Tests\Command;
+namespace TeamNeusta\Hosts\Tests\Command;
 
-use Neusta\Hosts\Command\ConnectCommand;
-use Neusta\Hosts\Console\Application;
-use Neusta\Hosts\Services\HostService;
-use Neusta\Hosts\Services\Provider\Cli;
+use TeamNeusta\Hosts\Command\ConnectCommand;
+use TeamNeusta\Hosts\Console\Application;
+use TeamNeusta\Hosts\Services\HostService;
+use TeamNeusta\Hosts\Services\Provider\Cli;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ConnectCommandTest extends \PHPUnit_Framework_TestCase
@@ -31,7 +31,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->hostServiceMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\HostService")
+        $this->hostServiceMock = $this->getMockBuilder("\\TeamNeusta\\Hosts\\Services\\HostService")
             ->disableOriginalConstructor()
             ->setMethods(['getHostsForQuestionhelper', 'getConnectionStringByName', 'getHosts'])
             ->getMock();
@@ -41,7 +41,7 @@ class ConnectCommandTest extends \PHPUnit_Framework_TestCase
                 'SomeHost'
             ]);
 
-        $this->cliServiceMock = $this->getMockBuilder('\\Neusta\\Hosts\\Services\\Provider\\Cli')
+        $this->cliServiceMock = $this->getMockBuilder('\\TeamNeusta\\Hosts\\Services\\Provider\\Cli')
             ->setMethods(['passthruSsh'])
             ->getMock();
     }

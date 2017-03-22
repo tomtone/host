@@ -7,9 +7,9 @@
  *
  */
 
-namespace Neusta\Hosts\Test\Services\Provider;
+namespace TeamNeusta\Hosts\Test\Services\Provider;
 
-use Neusta\Hosts\Services\Provider\Filesystem;
+use TeamNeusta\Hosts\Services\Provider\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
@@ -25,7 +25,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
     private $fileSystem;
 
     /**
-     * @var \Neusta\Hosts\Services\Provider\File | \PHPUnit_Framework_MockObject_MockObject
+     * @var \TeamNeusta\Hosts\Services\Provider\File | \PHPUnit_Framework_MockObject_MockObject
      */
     private $file;
 
@@ -45,7 +45,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['exists', 'dumpFile'])
             ->getMock();
-        $this->file = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\Provider\\File")
+        $this->file = $this->getMockBuilder("\\TeamNeusta\\Hosts\\Services\\Provider\\File")
             ->disableOriginalConstructor()
             ->setMethods(['getContents'])
             ->getMock();
@@ -362,7 +362,7 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
             ->with('/some/home/path'.DIRECTORY_SEPARATOR.'.hosts')
             ->willReturn(json_encode(['hosts_url' => 'someHost', 'hosts' => []]));
 
-        $this->expectException("\\Neusta\\Hosts\\Exception\\HostAlreadySetException");
+        $this->expectException("\\TeamNeusta\\Hosts\\Exception\\HostAlreadySetException");
 
         $filesystem = new Filesystem($this->fileSystem, $this->file);
 
@@ -433,7 +433,10 @@ class FilesystemTest extends \PHPUnit_Framework_TestCase
                     '/some/home/path'.DIRECTORY_SEPARATOR.'.hosts',
                 ]
             )
-            ->willReturn(json_encode(['hosts' => [['host' => 'someHost']]]));
+            ->willReturnOnConsecutiveCalls(
+                    json_encode(['hosts' => [['host' => 'someHost']]]),
+                    '[]'
+            );
 
         $this->fileSystem->expects($this->any())
             ->method('dumpFile')

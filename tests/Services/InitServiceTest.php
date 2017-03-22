@@ -7,16 +7,16 @@
  *
  */
 
-namespace Neusta\Hosts\Tests\Services;
+namespace TeamNeusta\Hosts\Tests\Services;
 
-use Neusta\Hosts\Services\InitService;
-use Neusta\Hosts\Services\Provider\Filesystem;
+use TeamNeusta\Hosts\Services\InitService;
+use TeamNeusta\Hosts\Services\Provider\Filesystem;
 use org\bovigo\vfs\vfsStream;
 
 class InitServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Neusta\Hosts\Services\Provider\Filesystem | \PHPUnit_Framework_MockObject_MockObject
+     * @var \TeamNeusta\Hosts\Services\Provider\Filesystem | \PHPUnit_Framework_MockObject_MockObject
      */
     private $fileSystemMock;
 
@@ -27,7 +27,7 @@ class InitServiceTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->fileSystemMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\Provider\\Filesystem")
+        $this->fileSystemMock = $this->getMockBuilder("\\TeamNeusta\\Hosts\\Services\\Provider\\Filesystem")
             ->disableOriginalConstructor()
             ->setMethods([
                 'getHomeDir',

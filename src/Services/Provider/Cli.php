@@ -7,14 +7,14 @@
  *
  */
 
-namespace Neusta\Hosts\Services\Provider;
+namespace TeamNeusta\Hosts\Services\Provider;
 
 /**
  * Class Cli
  * Passing by a php method for testing purposes.
  *
  * @codeCoverageIgnore
- * @package Neusta\Hosts\Services\Provider
+ * @package TeamNeusta\Hosts\Services\Provider
  */
 class Cli
 {

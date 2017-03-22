@@ -7,11 +7,11 @@
  *
  */
 
-namespace Neusta\Hosts\Command;
+namespace TeamNeusta\Hosts\Command;
 
-use Neusta\Hosts\Services\HostService;
-use Neusta\Hosts\Services\Provider\Cli;
-use Neusta\Hosts\Services\Validator\Scope;
+use TeamNeusta\Hosts\Services\HostService;
+use TeamNeusta\Hosts\Services\Provider\Cli;
+use TeamNeusta\Hosts\Services\Validator\Scope;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -56,7 +56,7 @@ class ConnectCommand extends AbstractCommand
      *
      * @see setCode()
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $scope = $input->getOption('scope');
         Scope::validateScope($scope);

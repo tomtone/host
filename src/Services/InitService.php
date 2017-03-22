@@ -7,11 +7,11 @@
  *
  */
 
-namespace Neusta\Hosts\Services;
+namespace TeamNeusta\Hosts\Services;
 
-use Neusta\Hosts\Exception\HostAlreadySet;
-use Neusta\Hosts\Services\Provider\File;
-use Neusta\Hosts\Services\Provider\Filesystem;
+use TeamNeusta\Hosts\Exception\HostAlreadySet;
+use TeamNeusta\Hosts\Services\Provider\File;
+use TeamNeusta\Hosts\Services\Provider\Filesystem;
 
 /**
  * Class InitService
@@ -31,10 +31,7 @@ class InitService
      */
     public function __construct(Filesystem $fs = null)
     {
-        if (is_null($fs)) {
-            $fs = new Filesystem();
-        }
-        $this->fs = $fs;
+        $this->fs = $fs ?? new Filesystem();
     }
 
     /**
@@ -43,7 +40,7 @@ class InitService
      *
      * @return bool
      */
-    public function localConfigurationExist()
+    public function localConfigurationExist() : bool
     {
         $homeDir = $this->fs->getHomeDir();
 

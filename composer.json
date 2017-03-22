@@ -24,8 +24,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Neusta\\Hosts\\": "src/",
-            "Neusta\\Hosts\\Tests\\": "tests/"
+            "TeamNeusta\\Hosts\\": "src/",
+            "TeamNeusta\\Hosts\\Tests\\": "tests/"
         }
-    }
+    },
+    "bin": ["bin/hosts", "bin/hosts.bat"]
 }

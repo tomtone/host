@@ -7,10 +7,10 @@
  *
  */
 
-namespace Neusta\Hosts\Command;
+namespace TeamNeusta\Hosts\Command;
 
-use Neusta\Hosts\Services\HostService;
-use Neusta\Hosts\Services\Provider\Cli;
+use TeamNeusta\Hosts\Services\HostService;
+use TeamNeusta\Hosts\Services\Provider\Cli;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
@@ -42,13 +42,7 @@ abstract class AbstractCommand extends Command
     public function __construct($name = null, HostService $hostService = null, Cli $cli = null)
     {
         parent::__construct($name);
-        if (is_null($hostService)) {
-            $hostService = new HostService();
-        }
-        if (is_null($cli)) {
-            $cli = new Cli();
-        }
-        $this->_cli = $cli;
-        $this->_hostService = $hostService;
+        $this->_cli = $cli ?? new Cli();
+        $this->_hostService = $hostService  ?? new HostService();
     }
 }

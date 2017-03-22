@@ -7,10 +7,10 @@
  *
  */
 
-namespace Neusta\Hosts\Test\Services\Validator;
+namespace TeamNeusta\Hosts\Test\Services\Validator;
 
 
-use Neusta\Hosts\Services\Validator\Scope;
+use TeamNeusta\Hosts\Services\Validator\Scope;
 
 class ScopeTest extends \PHPUnit_Framework_TestCase
 {

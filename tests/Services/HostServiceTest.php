@@ -7,14 +7,14 @@
  *
  */
 
-namespace Neusta\Hosts\Tests\Services;
+namespace TeamNeusta\Hosts\Tests\Services;
 
-use Neusta\Hosts\Services\HostService;
+use TeamNeusta\Hosts\Services\HostService;
 
 class HostServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Neusta\Hosts\Services\Provider\Filesystem | \PHPUnit_Framework_MockObject_MockObject
+     * @var \TeamNeusta\Hosts\Services\Provider\Filesystem | \PHPUnit_Framework_MockObject_MockObject
      */
     private $fileSystemMock;
 
@@ -25,7 +25,7 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->fileSystemMock = $this->getMockBuilder("\\Neusta\\Hosts\\Services\\Provider\\Filesystem")
+        $this->fileSystemMock = $this->getMockBuilder("\\TeamNeusta\\Hosts\\Services\\Provider\\Filesystem")
             ->disableOriginalConstructor()
             ->setMethods([
                 'addHostToConfiguration',
@@ -39,8 +39,8 @@ class HostServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers \Neusta\Hosts\Services\HostService::update
-     * @covers \Neusta\Hosts\Services\HostService::setScope
+     * @covers \TeamNeusta\Hosts\Services\HostService::update
+     * @covers \TeamNeusta\Hosts\Services\HostService::setScope
      *
      * @return void
      */

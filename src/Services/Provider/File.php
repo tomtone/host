@@ -7,12 +7,12 @@
  *
  */
 
-namespace Neusta\Hosts\Services\Provider;
+namespace TeamNeusta\Hosts\Services\Provider;
 
 /**
  * Class File
  * @codeCoverageIgnore
- * @package Neusta\Hosts\Services\Provider
+ * @package TeamNeusta\Hosts\Services\Provider
  */
 class File
 {
@@ -22,14 +22,14 @@ class File
      * @param bool $filename
      * @return string
      */
-    public function getContents($filename = false)
+    public function getContents($filename = false) : string
     {
         $content = '';
         if ($filename) {
             $content = @file_get_contents($filename);
         }
         // if anything goes wrong getting the contents, add empty Array to avoid errors during json_decode
-        if ($content === FALSE) {
+        if ($content == false) {
             $content = '[]';
         }
         return $content;

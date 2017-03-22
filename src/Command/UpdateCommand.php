@@ -7,7 +7,7 @@
  *
  */
 
-namespace Neusta\Hosts\Command;
+namespace TeamNeusta\Hosts\Command;
 
 use Herrera\Phar\Update\Manager;
 use Herrera\Phar\Update\Manifest;
@@ -62,7 +62,7 @@ class UpdateCommand extends Command
      *
      * @see setCode()
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
         $updates = $manager->getManifest()->getUpdates();

@@ -7,11 +7,11 @@
  *
  */
 
-namespace Neusta\Hosts\Command;
+namespace TeamNeusta\Hosts\Command;
 
-use Neusta\Hosts\Exception\HostAlreadySet;
-use Neusta\Hosts\Exception\HostAlreadySetException;
-use Neusta\Hosts\Services\InitService;
+use TeamNeusta\Hosts\Exception\HostAlreadySet;
+use TeamNeusta\Hosts\Exception\HostAlreadySetException;
+use TeamNeusta\Hosts\Services\InitService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -81,7 +81,7 @@ class InitCommand extends Command
      *
      * @see setCode()
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $output->writeln("Still work in Progress!");
         return 0;

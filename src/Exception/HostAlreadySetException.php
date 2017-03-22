@@ -7,14 +7,14 @@
  *
  */
 
-namespace Neusta\Hosts\Exception;
+namespace TeamNeusta\Hosts\Exception;
 
 use Exception;
 
 /**
  * Class HostAlreadySet
  * @codeCoverageIgnore
- * @package Neusta\Hosts\Exception
+ * @package TeamNeusta\Hosts\Exception
  */
 class HostAlreadySetException extends \Exception
 {

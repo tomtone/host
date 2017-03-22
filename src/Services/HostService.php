@@ -7,9 +7,9 @@
  *
  */
 
-namespace Neusta\Hosts\Services;
+namespace TeamNeusta\Hosts\Services;
 
-use Neusta\Hosts\Services\Provider\Filesystem;
+use TeamNeusta\Hosts\Services\Provider\Filesystem;
 
 class HostService
 {
@@ -30,12 +30,7 @@ class HostService
      */
     public function __construct(Filesystem $fs = null)
     {
-        //@codeCoverageIgnoreStart
-        if (is_null($fs)) {
-            $fs = new Filesystem();
-        }
-        //@codeCoverageIgnoreEnd
-        $this->fs = $fs;
+        $this->fs = $fs ?? new Filesystem();
     }
 
     /**
@@ -59,7 +54,7 @@ class HostService
     }
 
 
-    public function getHosts($scope)
+    public function getHosts($scope) : array
     {
         switch ($scope) {
             case 'local':
@@ -78,12 +73,12 @@ class HostService
         return $config['hosts'];
     }
 
-    private function mergeConfigs()
+    private function mergeConfigs() : array
     {
         $args = func_get_args();
         $config = ['hosts' => []];
         foreach ($args as $hosts) {
-            if (array_key_exists('hosts', $hosts)) {
+            if (isset($hosts['hosts'])) {
                 foreach ($hosts['hosts'] as $entry) {
                     $config['hosts'][] = $entry;
                 }
@@ -92,7 +87,7 @@ class HostService
         return $config;
     }
 
-    public function getHostsForQuestionhelper()
+    public function getHostsForQuestionhelper() : array
     {
         $config = $this->getHosts($this->_scope);
         $hosts = [];
@@ -102,7 +97,7 @@ class HostService
         return $hosts;
     }
 
-    public function getConnectionStringByName($host)
+    public function getConnectionStringByName($host) : string
     {
         $config = $this->getHosts($this->_scope);
 
