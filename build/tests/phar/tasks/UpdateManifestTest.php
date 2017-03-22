@@ -9,7 +9,7 @@
 
 use org\bovigo\vfs\vfsStream;
 
-require_once dirname(dirname(dirname(__DIR__))). '/phar/tasks/UpdateManifest.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/phar/tasks/UpdateManifest.php';
 /**
  * Class UpdateManifestTest
  */
@@ -58,7 +58,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
 
         $this->updateManifest = new UpdateManifest($versionManagerMock);
         $this->updateManifest->setProject($testProject);
-        $this->updateManifest->setBaseDir(vfsStream::url('testDir'). '/');
+        $this->updateManifest->setBaseDir(vfsStream::url('testDir') . '/');
         $this->updateManifest->setDownloadPath('test_release');
     }
 
@@ -66,7 +66,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return void
      */
-    public function testMainWillAddReleaseToManifestFile(){
+    public function testMainWillAddReleaseToManifestFile() {
 
         $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest.json'));
         $this->updateManifest->main();
@@ -92,7 +92,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return void
      */
-    public function testMainWillReplaceDuplicateReleasesFromManifestFile(){
+    public function testMainWillReplaceDuplicateReleasesFromManifestFile() {
 
         $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest_same_release.json'));
         $this->updateManifest->main();
@@ -118,7 +118,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return void
      */
-    public function testMainWillAppendReleasesOnExistingManifestFile(){
+    public function testMainWillAppendReleasesOnExistingManifestFile() {
 
         $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest_filled.json'));
         $this->updateManifest->main();
@@ -150,7 +150,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return void
      */
-    public function testMainWillCreateManifestFileOnFirstRelease(){
+    public function testMainWillCreateManifestFileOnFirstRelease() {
 
         $this->updateManifest->setManifestPath(vfsStream::url('testDir/manifest_missing.json'));
         $this->updateManifest->main();
