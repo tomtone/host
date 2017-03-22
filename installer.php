@@ -20,7 +20,7 @@ namespace
     $n = PHP_EOL;
 
     set_error_handler(
-        function ($code, $message) use ($n) {
+        function($code, $message) use ($n) {
             if ($code & error_reporting()) {
                 echo "$n{$n}Error: $message$n$n";
                 exit(1);
@@ -41,7 +41,7 @@ namespace
     check(
         'You have a supported version of PHP (>= 7.0.0).',
         'You need PHP 7.0.0 or greater.',
-        function () {
+        function() {
             return version_compare(PHP_VERSION, '7.0.0', '>=');
         }
     );
@@ -50,7 +50,7 @@ namespace
     check(
         'You have the "phar" extension installed.',
         'You need to have the "phar" extension installed.',
-        function () {
+        function() {
             return extension_loaded('phar');
         }
     );
@@ -59,7 +59,7 @@ namespace
     check(
         'You have a supported version of the "phar" extension.',
         'You need a newer version of the "phar" extension (>=2.0).',
-        function () {
+        function() {
             $phar = new ReflectionExtension('phar');
 
             return version_compare($phar->getVersion(), '2.0', '>=');
@@ -70,7 +70,7 @@ namespace
     check(
         'You have the "openssl" extension installed.',
         'Notice: The "openssl" extension will be needed to sign with private keys.',
-        function () {
+        function() {
             return extension_loaded('openssl');
         },
         false
@@ -80,7 +80,7 @@ namespace
     check(
         'The "phar.readonly" setting is off.',
         'Notice: The "phar.readonly" setting needs to be off to create Phars.',
-        function () {
+        function() {
             return (ini_get_bool('phar.readonly') === false);
         },
         false
@@ -90,7 +90,7 @@ namespace
     check(
         'The "detect_unicode" setting is off.',
         'The "detect_unicode" setting needs to be off.',
-        function () {
+        function() {
             return (ini_get_bool('detect_unicode') === false);
         }
     );
@@ -100,7 +100,7 @@ namespace
         check(
             'The "phar" stream wrapper is allowed by suhosin.',
             'The "phar" stream wrapper is blocked by suhosin.',
-            function () {
+            function() {
                 $white = ini_get('suhosin.executor.include.whitelist');
                 $black = ini_get('suhosin.executor.include.blacklist');
 
@@ -118,7 +118,7 @@ namespace
     check(
         'The "allow_url_fopen" setting is on.',
         'The "allow_url_fopen" setting needs to be on.',
-        function () {
+        function() {
             return ini_get_bool('allow_url_fopen');
         }
     );
@@ -173,7 +173,7 @@ namespace
     echo " - Making Host executable...$n";
 
     if (@chmod($item->name, 0755) === false) {
-        throw new \RuntimeException('Permissions on '.$item->name.' could not be changed.');
+        throw new \RuntimeException('Permissions on ' . $item->name . ' could not be changed.');
     }
 
     echo "{$n}Host installed!$n";
