@@ -17,7 +17,13 @@ class Scope
 
     public static function validateScope(string $scope = null)
     {
-        if ($scope !== self::SCOPE_GLOBAL && $scope !== self::SCOPE_LOCAL && $scope !== self::SCOPE_PROJECT && $scope !== null) {
+        $scopes = [
+            self::SCOPE_GLOBAL,
+            self::SCOPE_LOCAL,
+            self::SCOPE_PROJECT
+        ];
+
+        if (!in_array($scope, $scopes) && $scope !== null) {
             throw new \InvalidArgumentException(printf('Scope "%s" not defined.', $scope));
         }
     }
