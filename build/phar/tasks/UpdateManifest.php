@@ -147,7 +147,10 @@ class UpdateManifest extends Task
         $version = $releaseData['version'];
 
         foreach ($manifest as $key => $entry) {
-            if ((array_key_exists('sha1', $entry) && $entry['sha1'] == $sha) || (array_key_exists('version', $entry) && $entry['version'] == $version)) {
+            $shaToCompare = $entry['sha1'] ?? null;
+            $versionToCompare = $entry['version'] ?? null;
+
+            if ($shaToCompare === $sha || $versionToCompare === $version) {
                 unset($manifest[$key]);
             }
         }
