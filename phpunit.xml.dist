@@ -13,12 +13,10 @@
          verbose="true">
     <testsuite name="Host-Project">
         <directory suffix="Test.php">./tests</directory>
-        <exclude>./tests/_fixture</exclude>
         <exclude>./src/Command/InitCommand.php</exclude>
     </testsuite>
     <testsuite name="Host-Build-Tools">
         <directory suffix="Test.php">./build/tests</directory>
-        <exclude>./build/tests/_fixture</exclude>
     </testsuite>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">

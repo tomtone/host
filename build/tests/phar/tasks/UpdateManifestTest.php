@@ -19,6 +19,7 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
      * @var \org\bovigo\vfs\vfsStreamDirectory
      */
     protected $root;
+
     /**
      * @var UpdateManifest
      */
@@ -31,18 +32,8 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
         $this->root = vfsStream::setup('testDir', null, [
             'hosts.phar' => 'content',
             'manifest.json' => '[]',
-            'manifest_same_release.json' => json_encode([[
-                'name' => 'some_file.phar',
-                'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
-                'url' => 'https://another-url.de',
-                'version' => '2.5.0'
-            ]]),
-            'manifest_filled.json' => json_encode([[
-                'name' => 'some_file.phar',
-                'sha1' => 'some_sha1',
-                'url' => 'https://another-url.de',
-                'version' => '1.5.0'
-            ]]),
+            'manifest_same_release.json' => $this->getSameReleaseManifest(),
+            'manifest_filled.json' => $this->getPrefilledManifest(),
             'test_release' => []
         ]);
 
@@ -141,5 +132,31 @@ class UpdateManifestTest extends \PHPUnit_Framework_TestCase
             $manifestContent);
 
         self::assertSame(2, count(json_decode($manifestContent, true)));
+    }
+
+    /**
+     * @return string
+     */
+    private function getSameReleaseManifest(): string
+    {
+        return json_encode([[
+            'name' => 'some_file.phar',
+            'sha1' => '040f06fd774092478d450774f5ba30c5da78acc8',
+            'url' => 'https://another-url.de',
+            'version' => '2.5.0'
+        ]]);
+    }
+
+    /**
+     * @return string
+     */
+    private function getPrefilledManifest(): string
+    {
+        return json_encode([[
+            'name' => 'some_file.phar',
+            'sha1' => 'some_sha1',
+            'url' => 'https://another-url.de',
+            'version' => '1.5.0'
+        ]]);
     }
 }
